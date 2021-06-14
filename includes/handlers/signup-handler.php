@@ -36,5 +36,12 @@ if (isset($_POST["signup-btn"])) {
     $password = sanitizeFormPassword($_POST["signup-password"]);
     $confirmPassword = sanitizeFormPassword($_POST["signup-password-confirm"]);
 
-    $account->register($username, $fname, $lname, $email, $confirmEmail, $password, $confirmPassword);
+    $registerationWasDone = $account->register($username, $fname, $lname, $email, $confirmEmail, $password, $confirmPassword);
+
+    if ($registerationWasDone) {
+        $_SESSION["userSignedIn"] = $username;
+        header("Location: index.php");
+    } else {
+        die("There was an error inserting data into the database");
+    }
 }

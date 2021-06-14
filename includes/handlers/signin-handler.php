@@ -1,4 +1,13 @@
 <?php
+// Sign in button was pressed
 if (isset($_POST["signin-btn"])) {
-    // Sign in button was pressed
+    $username = $_POST["signin-username"];
+    $password = $_POST["signin-password"];
+
+    $result = $account->login($username, $password);
+
+    if ($result) {
+        $_SESSION["userSignedIn"] = $username;
+        header("Location: index.php");
+    }
 }

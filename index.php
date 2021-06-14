@@ -1,3 +1,16 @@
+<?php
+include("includes/config.php");
+
+//session_destroy(); SIGN OUT
+
+if (isset($_SESSION["userSignedIn"])) {
+    $userSignedIn = $_SESSION["userSignedIn"];
+} else {
+    header("Location: login-signup.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
