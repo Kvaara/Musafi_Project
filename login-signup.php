@@ -44,11 +44,11 @@ function saveInputValue($name)
             <form id="signin-form" action="login-signup.php" method="POST">
                 <p>
                     <label for="signin-username">Username:</label>
-                    <input type="text" id="signin-username" name="signin-username" placeholder="A desired username..." required>
+                    <input type="text" id="signin-username" name="signin-username" placeholder="Enter your username..." required>
                 </p>
                 <p>
                     <label for="signin-password">Password:</label>
-                    <input type="password" id="signin-password" name="signin-password" placeholder="A strong password..." required>
+                    <input type="password" id="signin-password" name="signin-password" placeholder="Enter your password..." required>
                 </p>
 
                 <button type="submit" name="signin-btn" id="signin-btn">SIGN IN</button>
