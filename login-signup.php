@@ -34,73 +34,82 @@ function saveInputValue($name)
 <body>
     <div id="input-container">
 
-        <div id="signin-container">
-            <form id="signin-form" action="login-signup.php" method="POST">
-                <h2>Already have an account?</h2>
-                <span>Please sign in to your account below</span>
-                <p>
-                    <?php echo $account->getError(Constants::$loginFailure) ?>
-                    <label for="signin-username">Username</label>
-                    <input type="text" id="signin-username" name="signin-username" placeholder="Type in here..." required>
-                </p>
-                <p>
-                    <label for="signin-password">Password</label>
-                    <input type="password" id="signin-password" name="signin-password" placeholder="Type in here..." required>
-                </p>
-                <button type="submit" name="signin-btn" id="signin-btn">SIGN IN</button>
-            </form>
-
+        <div id="to-signin">
+            <h2>Already have an account?</h2>
+            <span>Please sign in to your account below</span>
         </div>
 
-        <div id="signup-container">
+        <div id="signin-container" style="display: none;">
+            <?php echo "<div id='signin-error-msg'>" . $account->getError(Constants::$loginFailure) . "</div>" ?>
+            <form id="signin-form" action="login-signup.php" method="POST">
+                <p>
+                    <label for="signin-username">Username:</label>
+                    <input type="text" id="signin-username" name="signin-username" placeholder="A desired username..." required>
+                </p>
+                <p>
+                    <label for="signin-password">Password:</label>
+                    <input type="password" id="signin-password" name="signin-password" placeholder="A strong password..." required>
+                </p>
+
+                <button type="submit" name="signin-btn" id="signin-btn">SIGN IN</button>
+                <button type="button" name="back-btn" class="back-btn" id="signin-back-btn"><span class="arrow-back-span">&#8678; </span> BACK</BUTTON>
+            </form>
+        </div>
+
+
+        <div id="to-signup">
+            <h2>Don't have an account?</h2>
+            <span>Please sign up with your email and password:</span>
+        </div>
+
+        <div id="signup-container" style="display: none;">
             <form id="signup-form" action="login-signup.php" method="POST">
-                <h2>Don't have an account?</h2>
-                <span>Please sign up with your email and password:</span>
                 <p>
                     <?php echo $account->getError(Constants::$usernameExists); ?>
                     <?php echo $account->getError(Constants::$usernameNotInRange); ?>
-                    <label for="signup-username">Username</label>
-                    <input type="text" id="signup-username" name="signup-username" placeholder="Type in here..." value='<?php saveInputValue("signup-username") ?>' required>
+                    <label for="signup-username">Username &#8594;</label>
+                    <input type="text" id="signup-username" name="signup-username" placeholder="A desired username..." value='<?php saveInputValue("signup-username") ?>' required>
                 </p>
 
                 <p>
                     <?php echo $account->getError(Constants::$firstNameNotInRange); ?>
-                    <label for="signup-fname">First name</label>
-                    <input type="text" id="signup-fname" name="signup-fname" placeholder="Type in here..." value='<?php saveInputValue("signup-fname") ?>' required>
+                    <label for="signup-fname">First name &#8594;</label>
+                    <input type="text" id="signup-fname" name="signup-fname" placeholder="What's your first name?" value='<?php saveInputValue("signup-fname") ?>' required>
                 </p>
 
                 <p>
                     <?php echo $account->getError(Constants::$lastNameNotInRange); ?>
-                    <label for="signup-lname">Last name</label>
-                    <input type="text" id="signup-lname" name="signup-lname" placeholder="Type in here..." value='<?php saveInputValue("signup-lname") ?>' required>
+                    <label for="signup-lname">Last name &#8594;</label>
+                    <input type="text" id="signup-lname" name="signup-lname" placeholder="What's your last?" value='<?php saveInputValue("signup-lname") ?>' required>
                 </p>
 
                 <p>
                     <?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
                     <?php echo $account->getError(Constants::$emailTaken); ?>
                     <?php echo $account->getError(Constants::$emailIncorrectForm); ?>
-                    <label for="signup-email">Email</label>
-                    <input type="email" id="signup-email" name="signup-email" placeholder="Type in here..." value='<?php saveInputValue("signup-email") ?>' required>
+                    <label for="signup-email">Email &#8594;</label>
+                    <input type="email" id="signup-email" name="signup-email" placeholder="Enter your email..." value='<?php saveInputValue("signup-email") ?>' required>
                 </p>
 
                 <p>
-                    <label for="signup-email-confirm">Confirm your email</label>
-                    <input type="email" id="signup-email-confirm" name="signup-email-confirm" placeholder="Type in here..." required>
+                    <label for="signup-email-confirm">Confirm email &#8594;</label>
+                    <input type="email" id="signup-email-confirm" name="signup-email-confirm" placeholder="Confirm the email..." required>
                 </p>
 
                 <p>
                     <?php echo $account->getError(Constants::$passwordsDoNotMatch); ?>
                     <?php echo $account->getError(Constants::$passwordNotAlphanumeric); ?>
                     <?php echo $account->getError(Constants::$passwordsTooShort); ?>
-                    <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" name="signup-password" placeholder="Type in here..." required maxlength="25">
+                    <label for="signup-password">Password &#8594;</label>
+                    <input type="password" id="signup-password" name="signup-password" placeholder="A strong password..." required maxlength="25">
                 </p>
 
                 <p>
-                    <label for="signup-password-confirm">Confirm your password</label>
-                    <input type="password" id="signup-password-confirm" name="signup-password-confirm" placeholder="Type in here..." required maxlength="25">
+                    <label for="signup-password-confirm">Confirm password &#8594;</label>
+                    <input type="password" id="signup-password-confirm" name="signup-password-confirm" placeholder="Confirm the password..." required maxlength="25">
                 </p>
 
+                <button type="button" name="back-btn" class="back-btn" id="signup-back-btn"><span class="arrow-back-span">&#8678; </span> BACK</BUTTON>
                 <button type="submit" name="signup-btn" id="signup-btn">SIGN UP</button>
             </form>
 
@@ -110,5 +119,36 @@ function saveInputValue($name)
 
 
 </body>
+
+<?php
+
+if (isset($_POST["signup-btn"])) {
+    echo "<script> 
+    const toSignInPost = document.querySelector('#to-signin');
+    const toSignUpPost = document.querySelector('#to-signup');
+    
+    const signInFormPost = document.querySelector('#signin-container');
+    const signUpFormPost = document.querySelector('#signup-container');
+
+    toSignUpPost.style.display = 'none';
+    toSignInPost.style.display = 'none';
+    signUpFormPost.style.display = 'block';
+    </script>";
+} else if (isset($_POST["signin-btn"])) {
+    echo "<script> 
+    const toSignInPost = document.querySelector('#to-signin');
+    const toSignUpPost = document.querySelector('#to-signup');
+    
+    const signInFormPost = document.querySelector('#signin-container');
+    const signUpFormPost = document.querySelector('#signup-container');
+    
+    toSignUpPost.style.display = 'none';
+    toSignInPost.style.display = 'none';
+    signInFormPost.style.display = 'block';
+    </script>";
+}
+?>
+
+<script src="./assets/js/register.js"></script>
 
 </html>

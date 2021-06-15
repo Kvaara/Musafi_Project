@@ -15,5 +15,5 @@ class Constants
     public static $usernameNotInRange = "Username must be between 4 and 20 characters long!";
     public static $usernameExists = "Username already exists!";
 
-    public static $loginFailure = "Username and/or password was incorrect";
+    public static $loginFailure = "Username and/or password was incorrect!";
 }

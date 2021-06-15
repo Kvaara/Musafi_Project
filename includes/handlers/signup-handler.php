@@ -41,7 +41,5 @@ if (isset($_POST["signup-btn"])) {
     if ($registerationWasDone) {
         $_SESSION["userSignedIn"] = $username;
         header("Location: index.php");
-    } else {
-        die("There was an error inserting data into the database");
     }
 }
