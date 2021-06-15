@@ -37,17 +37,17 @@ function saveInputValue($name)
         <div id="signin-container">
             <form id="signin-form" action="login-signup.php" method="POST">
                 <h2>Already have an account?</h2>
-                <span>Please sign in to your account below:</span>
+                <span>Please sign in to your account below</span>
                 <p>
                     <?php echo $account->getError(Constants::$loginFailure) ?>
-                    <label for="signin-username">Username:</label>
+                    <label for="signin-username">Username</label>
                     <input type="text" id="signin-username" name="signin-username" placeholder="Type in here..." required>
                 </p>
                 <p>
-                    <label for="signin-password">Password :</label>
+                    <label for="signin-password">Password</label>
                     <input type="password" id="signin-password" name="signin-password" placeholder="Type in here..." required>
                 </p>
-                <button type="submit" name="signin-btn" id="signin-btn">LOGIN</button>
+                <button type="submit" name="signin-btn" id="signin-btn">SIGN IN</button>
             </form>
 
         </div>
@@ -59,19 +59,19 @@ function saveInputValue($name)
                 <p>
                     <?php echo $account->getError(Constants::$usernameExists); ?>
                     <?php echo $account->getError(Constants::$usernameNotInRange); ?>
-                    <label for="signup-username">Username:</label>
+                    <label for="signup-username">Username</label>
                     <input type="text" id="signup-username" name="signup-username" placeholder="Type in here..." value='<?php saveInputValue("signup-username") ?>' required>
                 </p>
 
                 <p>
                     <?php echo $account->getError(Constants::$firstNameNotInRange); ?>
-                    <label for="signup-fname">First name:</label>
+                    <label for="signup-fname">First name</label>
                     <input type="text" id="signup-fname" name="signup-fname" placeholder="Type in here..." value='<?php saveInputValue("signup-fname") ?>' required>
                 </p>
 
                 <p>
                     <?php echo $account->getError(Constants::$lastNameNotInRange); ?>
-                    <label for="signup-lname">Last name:</label>
+                    <label for="signup-lname">Last name</label>
                     <input type="text" id="signup-lname" name="signup-lname" placeholder="Type in here..." value='<?php saveInputValue("signup-lname") ?>' required>
                 </p>
 
@@ -79,12 +79,12 @@ function saveInputValue($name)
                     <?php echo $account->getError(Constants::$emailsDoNotMatch); ?>
                     <?php echo $account->getError(Constants::$emailTaken); ?>
                     <?php echo $account->getError(Constants::$emailIncorrectForm); ?>
-                    <label for="signup-email">Email:</label>
+                    <label for="signup-email">Email</label>
                     <input type="email" id="signup-email" name="signup-email" placeholder="Type in here..." value='<?php saveInputValue("signup-email") ?>' required>
                 </p>
 
                 <p>
-                    <label for="signup-email-confirm">Confirm your email:</label>
+                    <label for="signup-email-confirm">Confirm your email</label>
                     <input type="email" id="signup-email-confirm" name="signup-email-confirm" placeholder="Type in here..." required>
                 </p>
 
@@ -92,12 +92,12 @@ function saveInputValue($name)
                     <?php echo $account->getError(Constants::$passwordsDoNotMatch); ?>
                     <?php echo $account->getError(Constants::$passwordNotAlphanumeric); ?>
                     <?php echo $account->getError(Constants::$passwordsTooShort); ?>
-                    <label for="signup-password">Password :</label>
+                    <label for="signup-password">Password</label>
                     <input type="password" id="signup-password" name="signup-password" placeholder="Type in here..." required maxlength="25">
                 </p>
 
                 <p>
-                    <label for="signup-password-confirm">Confirm your password :</label>
+                    <label for="signup-password-confirm">Confirm your password</label>
                     <input type="password" id="signup-password-confirm" name="signup-password-confirm" placeholder="Type in here..." required maxlength="25">
                 </p>
 
