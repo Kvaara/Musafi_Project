@@ -14,11 +14,24 @@
 
 html {
   margin: 0;
+  padding: 0;
   height: 100%;
+  background: #200122; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #6f0000,
+    #200122
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #6f0000,
+    #200122
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: "OpenSans-Regular";
   height: 100%;
 }
@@ -31,15 +44,106 @@ body {
   height: 100%;
 }
 
-#flex-wrapper > #application-section {
+#application-section-container {
+  opacity: 1;
   display: flex;
   flex: 1;
-  background-color: black;
 }
 
-#flex-wrapper > #footer-player {
-  flex-shrink: 0;
-  background-color: red;
-  min-height: 80px;
-  max-height: 80px;
+#footer-player-container {
+  display: flex;
+  background: rgb(0 0 0 / 0.6);
+  box-shadow: 0px 0px 25px 20px rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(10px);
+  min-height: 120px;
+  max-height: 120px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  outline: 1px solid black;
+}
+
+#footer-player-container {
+  /*   padding-left: 10px; */
+}
+
+#player-control-container {
+  position: relative;
+}
+
+#player-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#player-controls > img {
+  cursor: pointer;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+#player-controls :first-child,
+#player-controls :last-child {
+  margin-top: 40px;
+}
+
+#player-controls :nth-child(2),
+#player-controls :nth-child(5) {
+  margin-top: 20px;
+}
+
+#player-right,
+#player-left {
+  width: 45px;
+  margin-right: 10px;
+  margin-left: 10px;
+  transition: 150ms ease-in-out;
+}
+
+#player-right:hover,
+#player-left:hover {
+  transform: scale(1.2);
+}
+
+.player-play-pause {
+  width: 70px;
+  filter: invert(41%) sepia(100%) saturate(293%) hue-rotate(139deg)
+    brightness(94%) contrast(93%);
+  transition: 150ms ease-in-out;
+}
+
+.player-play-pause:hover {
+  transform: scale(1.2);
+  filter: invert(100%) sepia(0%) saturate(2%) hue-rotate(187deg)
+    brightness(104%) contrast(100%);
+}
+
+#player-shuffle,
+#player-repeat {
+  width: 30px;
+  transition: 150ms ease-in-out;
+}
+
+#player-shuffle:hover,
+#player-repeat:hover {
+  transform: scale(1.2);
+}
+
+#volume-control-container {
+}
+
+#player-progress {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
 }
