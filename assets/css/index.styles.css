@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "OpenSans-Regular";
+  src: url("../fonts/Open_sans/OpenSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "OpenSans-Light";
+  src: url("../fonts/Open_sans/OpenSans-Light.ttf") format("truetype");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "OpenSans-Regular";
+  height: 100%;
+}
+
+#flex-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  height: 100%;
+}
+
+#flex-wrapper > #application-section {
+  display: flex;
+  flex: 1;
+  background-color: black;
+}
+
+#flex-wrapper > #footer-player {
+  flex-shrink: 0;
+  background-color: red;
+  min-height: 80px;
+  max-height: 80px;
+}

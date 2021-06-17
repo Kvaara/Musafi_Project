@@ -59,7 +59,7 @@ function saveInputValue($name)
 
         <div id="to-signup">
             <h2>Don't have an account?</h2>
-            <span>Please sign up with your email and password:</span>
+            <span>Please sign up with your email and password</span>
         </div>
 
         <div id="signup-container" style="display: none;">
