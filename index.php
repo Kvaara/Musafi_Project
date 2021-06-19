@@ -30,7 +30,7 @@ if (isset($_SESSION["userSignedIn"])) {
             <div id="application-nav-bar">
                 <div id="nav-bar-title">
                     <img id="musafy-logo" src="./assets/img/musafy_logo.svg" alt="Musafy logo">
-                    <span id="nav-bar-title-text" class="nav-bar-text">Musafy</span>
+                    <span id="nav-bar-title-text" class="nav-bar-text">Musafi</span>
                 </div>
 
                 <div id="nav-bar-home" class="nav-bar-item">
