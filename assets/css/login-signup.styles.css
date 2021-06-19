@@ -8,17 +8,71 @@
   src: url("../fonts/Open_sans/OpenSans-Light.ttf") format("truetype");
 }
 
+@-webkit-keyframes GradientAnimation {
+  0% {
+    background-position: 0% 13%;
+  }
+  50% {
+    background-position: 100% 88%;
+  }
+  100% {
+    background-position: 0% 13%;
+  }
+}
+@-moz-keyframes GradientAnimation {
+  0% {
+    background-position: 0% 13%;
+  }
+  50% {
+    background-position: 100% 88%;
+  }
+  100% {
+    background-position: 0% 13%;
+  }
+}
+@-o-keyframes GradientAnimation {
+  0% {
+    background-position: 0% 13%;
+  }
+  50% {
+    background-position: 100% 88%;
+  }
+  100% {
+    background-position: 0% 13%;
+  }
+}
+@keyframes GradientAnimation {
+  0% {
+    background-position: 0% 13%;
+  }
+  50% {
+    background-position: 100% 88%;
+  }
+  100% {
+    background-position: 0% 13%;
+  }
+}
+
 html {
   height: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: url(../img/signup_and_login_bg.jpg) no-repeat center center fixed;
-  background-color: black;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background: linear-gradient(
+    227deg,
+    #200122,
+    #6f0000,
+    #200122,
+    #200122,
+    #6f0000,
+    #200122
+  );
+  background-size: 1200% 1200%;
+
+  -webkit-animation: GradientAnimation 39s ease infinite;
+  -moz-animation: GradientAnimation 39s ease infinite;
+  -o-animation: GradientAnimation 39s ease infinite;
+  animation: GradientAnimation 39s ease infinite;
 }
 
 body {
@@ -28,29 +82,37 @@ body {
 }
 
 #input-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-evenly;
-  margin: 130px auto;
   width: 1300px;
   background: rgb(0 0 0 / 50%);
-  border: 3px solid #fecb00;
-  box-shadow: 0px 4px 20px 10px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(5px);
-  border-radius: 30px;
+  border: 2px solid #200122;
+  box-shadow: 0px 4px 20px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
   height: 525px;
   align-items: center;
+  transition: 300ms ease-in-out;
+}
+
+#input-container:hover {
+  border: 2px solid #28464b;
 }
 
 #to-signin {
   position: relative;
   cursor: pointer;
   bottom: 30px;
+  /*   box-shadow: 0px 10px 0px 0px white; */
 }
 
 #to-signin > h2 {
   letter-spacing: 3px;
   font-size: 45px;
-  color: black;
+  color: #28464b;
   transition: 0.2s ease-in-out;
 }
 
@@ -60,7 +122,7 @@ body {
   text-align: center;
   font-size: 20px;
   transition: 0.2s ease-in-out;
-  color: black;
+  color: #28464b;
 }
 
 #to-signin:hover > h2 {
@@ -106,7 +168,7 @@ body {
 #to-signup > h2 {
   letter-spacing: 3px;
   font-size: 45px;
-  color: black;
+  color: #28464b;
   transition: 0.2s ease-in-out;
 }
 
@@ -116,7 +178,7 @@ body {
   font-size: 20px;
   transition: 0.2s ease-in-out;
   letter-spacing: 3px;
-  color: black;
+  color: #28464b;
 }
 
 #to-signup:hover > h2 {
@@ -221,20 +283,20 @@ button:hover {
   top: -1px;
 }
 
-#signin-error-msg {
-  color: red;
-  position: absolute;
-  font-size: 25px;
-  top: 100px;
-  left: 425px;
-  font-weight: bold;
-}
-
 .error-msg {
   color: red;
   display: block;
   text-align: center;
   font-size: 15px;
+  font-weight: bold;
+}
+
+#signin-error-msg .error-msg {
+  color: red;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -25px);
+  font-size: 20px;
   font-weight: bold;
 }
 
