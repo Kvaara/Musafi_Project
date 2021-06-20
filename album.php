@@ -1,5 +1,6 @@
 <?php
 include("includes/config.php");
+include("includes/classes/Artist.php");
 
 //session_destroy(); SIGN OUT
 
@@ -8,7 +9,6 @@ if (isset($_SESSION["userSignedIn"])) {
 } else {
     header("Location: login-signup.php");
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +35,18 @@ if (isset($_SESSION["userSignedIn"])) {
                 <header id="application-page-header">
                     <h1> Welcome, <?php echo $userSignedIn ?>!</h1>
                 </header>
+
+                <?php if (isset($_GET['id'])) {
+                    $albumId = $_GET['id'];
+                } else {
+                    header("Location: index.php");
+                }
+
+                $album = new Album($con, $albumId);
+
+                $artist = new Artist($con, $albums["artist"]);
+                echo $artist->getName();
+                ?>
 
                 <section id="application-page-section">
                     <?php

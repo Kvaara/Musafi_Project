@@ -412,8 +412,8 @@ body {
 .nav-bar-item > img {
   margin-left: 21px;
   transition: 200ms ease-in-out;
-  filter: invert(99%) sepia(78%) saturate(2%) hue-rotate(7deg) brightness(112%)
-    contrast(30%);
+  filter: invert(99%) sepia(78%) saturate(2%) hue-rotate(7deg) brightness(50%)
+    contrast(100%);
 }
 
 .nav-bar-text {
@@ -501,14 +501,32 @@ body {
   justify-content: center;
   align-items: center;
   gap: 5px;
+  transition: 200ms ease-in-out;
+}
+
+.albums:hover {
+  transform: scale(1.4);
+}
+
+.albums:hover .album-info {
+  letter-spacing: 0px;
 }
 
 .album-info {
   color: white;
+  font-size: 20px;
+  letter-spacing: 4px;
+  transition: 200ms ease-in-out;
 }
 
 .album-img {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 160px;
   border-radius: 5px;
+  object-fit: cover;
+  border: 1px solid #2c8c99;
+}
+
+a {
+  text-decoration: none;
 }
