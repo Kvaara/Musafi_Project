@@ -154,6 +154,12 @@ body {
   gap: 30px;
 }
 
+@media only screen and (max-width: 700px) {
+  #player-controls {
+    gap: 0px;
+  }
+}
+
 #player-controls > img {
   cursor: pointer;
   -webkit-user-drag: none;
@@ -231,7 +237,7 @@ body {
 
 #progress-bar {
   max-width: 500px;
-  width: 50vw;
+  width: 23vw;
   cursor: pointer;
 }
 
@@ -259,6 +265,18 @@ body {
   border-radius: 10px;
 }
 
+@media only screen and (max-width: 480px) {
+  #current-song-container #current-song-img {
+    width: 50px;
+  }
+  #current-song-container {
+    padding-left: 5px;
+  }
+  #volume-control-container {
+    padding-right: 5px;
+  }
+}
+
 #current-song-container #current-song-info {
   margin-left: 15px;
 }
@@ -274,6 +292,16 @@ body {
   color: #28464b;
   font-weight: bold;
   user-select: text;
+}
+
+@media only screen and (max-width: 860px) {
+  #current-song-info #current-song-name {
+    font-size: 13px;
+    font-weight: bold;
+  }
+  #current-song-info #current-song-author {
+    font-size: 10px;
+  }
 }
 
 #volume-control-btn {
@@ -447,4 +475,40 @@ body {
 
 #application-page {
   flex: 1;
+  background: rgb(0 0 0 / 0.7);
+  border-radius: 10px;
+}
+
+#application-page-header {
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid white;
+}
+
+#application-page-albums {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
+
+.albums {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.album-info {
+  color: white;
+}
+
+.album-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
 }
