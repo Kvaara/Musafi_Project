@@ -41,3 +41,7 @@ if (currentPage.includes("index.php") || currentPage.slice(-1) === "/") {
     "invert(99%) sepia(78%) saturate(2%) hue-rotate(7deg) brightness(112%) contrast(100%)";
   navBarSettings.style.boxShadow = "inset 5px 0px 0px #6f0000";
 }
+
+navBarHome.addEventListener("click", () => {
+  window.location.href = "index.php";
+});

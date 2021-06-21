@@ -283,13 +283,13 @@ body {
 
 #current-song-info #current-song-name {
   font-size: 25px;
-  color: #2c8c99;
+  color: white;
   user-select: text !important;
 }
 
 #current-song-info #current-song-author {
   font-size: 16px;
-  color: #28464b;
+  color: white;
   font-weight: bold;
   user-select: text;
 }
@@ -490,15 +490,28 @@ body {
 #application-page-albums {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  margin-top: 50px;
+  padding-top: 50px;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+#application-page-albums > a {
+  flex: 0 0 20%;
+  margin-bottom: 50px;
+}
+
+@media only screen and (max-width: 875px) {
+  #application-page-albums > a {
+    flex: 1 0 33%;
+  }
 }
 
 .albums {
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 5px;
   transition: 200ms ease-in-out;
@@ -517,6 +530,7 @@ body {
   font-size: 20px;
   letter-spacing: 4px;
   transition: 200ms ease-in-out;
+  text-align: center;
 }
 
 .album-img {
@@ -525,6 +539,18 @@ body {
   border-radius: 5px;
   object-fit: cover;
   border: 1px solid #2c8c99;
+  transition: 200ms ease-in-out;
+}
+
+@media only screen and (max-width: 600px) {
+  .album-img {
+    width: 80px;
+    height: 100px;
+  }
+  .album-info {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
 }
 
 a {

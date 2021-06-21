@@ -1,0 +1,30 @@
+#application-page-header {
+  border-bottom: 1px solid #2c4c4e;
+}
+
+#header-album-title {
+  font-size: 40px;
+  letter-spacing: 2px;
+}
+
+#header-album-artist {
+  font-size: 16px;
+  color: #ffffff82;
+}
+
+#application-page-section {
+  display: flex;
+  height: 80%;
+}
+
+#application-page-album {
+  margin: auto 0;
+  margin-left: 100px;
+}
+
+#album-artwork {
+  border-radius: 30px;
+  width: 340px;
+  height: 480px;
+  object-fit: cover;
+}

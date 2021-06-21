@@ -1,6 +1,7 @@
 <?php
 include("includes/config.php");
 include("includes/classes/Artist.php");
+include("includes/classes/Album.php");
 
 //session_destroy(); SIGN OUT
 
@@ -9,6 +10,19 @@ if (isset($_SESSION["userSignedIn"])) {
 } else {
     header("Location: login-signup.php");
 }
+
+if (isset($_GET['id'])) {
+    $albumId = $_GET['id'];
+} else {
+    header("Location: index.php");
+}
+
+$album = new Album($con, $albumId);
+$albumTitle = $album->getTitle();
+
+$artist = $album->getArtist();
+$artistName = $artist->getName();
+
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +33,7 @@ if (isset($_SESSION["userSignedIn"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/index.styles.css">
+    <link rel="stylesheet" href="./assets/css/album.styles.css">
     <title>Document</title>
 </head>
 
@@ -33,35 +48,17 @@ if (isset($_SESSION["userSignedIn"])) {
 
             <div id="application-page">
                 <header id="application-page-header">
-                    <h1> Welcome, <?php echo $userSignedIn ?>!</h1>
+                    <h1 id="header-album-title">
+                        <?php echo $albumTitle ?>
+                        <span id="header-album-artist"> by <?php echo $artistName ?></span>
+                    </h1>
                 </header>
 
-                <?php if (isset($_GET['id'])) {
-                    $albumId = $_GET['id'];
-                } else {
-                    header("Location: index.php");
-                }
-
-                $album = new Album($con, $albumId);
-
-                $artist = new Artist($con, $albums["artist"]);
-                echo $artist->getName();
-                ?>
-
                 <section id="application-page-section">
-                    <?php
-                    $albumsQuery = mysqli_query($con, "SELECT * FROM albums");
-                    while ($row = mysqli_fetch_assoc($albumsQuery)) {
-                        echo "<div id='application-page-albums'>
-                            <a href='album.php?id={$row['id']}'>
-                            <div id='{$row['id']}' class='albums'>
-                            <img class='album-img' src={$row['artworkPath']} alt='album img'>
-                            <span class='album-info'>{$row['title']}</span>
-                            </div>
-                            </a>
-                            </div";
-                    }
-                    ?>
+
+                    <div id="application-page-album">
+                        <img id="album-artwork" src="<?php echo $album->getArtworkPath(); ?>" alt="Album image">
+                    </div>
                 </section>
             </div>
 
