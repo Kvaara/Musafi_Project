@@ -1,3 +1,19 @@
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2c4c4e;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #00000080;
+  border-radius: 10px;
+}
+
 #application-page-header {
   border-bottom: 1px solid #2c4c4e;
 }
@@ -5,26 +21,114 @@
 #header-album-title {
   font-size: 40px;
   letter-spacing: 2px;
+  text-align: center;
 }
 
 #header-album-artist {
   font-size: 16px;
-  color: #ffffff82;
+  color: #2c4c4e;
 }
 
 #application-page-section {
   display: flex;
-  height: 80%;
+  height: 65%;
 }
 
 #application-page-album {
   margin: auto 0;
-  margin-left: 100px;
+  margin-left: 5%;
+  display: flex;
+  gap: 2%;
+  flex: 1 1 auto;
 }
 
 #album-artwork {
-  border-radius: 30px;
-  width: 340px;
-  height: 480px;
+  border-radius: 20px;
+  /*   height: 45vh; */
+  /*   width: 15vw; */
+  width: 16%;
   object-fit: cover;
+  border: 1px solid #6f0000;
+}
+
+#album-songs-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 75%;
+  border-bottom: 1px solid #6f0000;
+}
+
+#album-songs-list-container {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  height: 100%;
+  overflow: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#album-songs-count {
+  color: white;
+  font-size: 30px;
+  white-space: nowrap;
+  color: white;
+  border-bottom: 1px solid #6f0000;
+  border-radius: 1px;
+  padding-bottom: 6px;
+}
+
+.album-song {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: background-color 100ms ease-in-out;
+}
+
+.album-song:hover {
+  background-color: #00000078;
+}
+
+.album-song:hover .album-song-lineup {
+  background-color: #e00000;
+}
+.album-song:hover .album-song-play {
+  transform: scale(1.2);
+  visibility: visible;
+}
+
+.album-song-play {
+  filter: invert(100%) sepia(0%) saturate(2%) hue-rotate(26deg) brightness(106%)
+    contrast(101%);
+  width: 40px;
+  cursor: pointer;
+  transition: transform 100ms ease-in-out;
+  margin-right: 10px;
+  visibility: hidden;
+}
+
+.album-song-lineup {
+  background-color: #6f0000;
+  width: 2px;
+  height: 100%;
+  border-radius: 15px;
+  transition: background-color 100ms ease-in-out;
+}
+
+.album-song-number {
+  display: flex;
+  min-width: 45px;
+  max-width: 45px;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.album-song-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 16px;
+  padding-left: 10px;
 }

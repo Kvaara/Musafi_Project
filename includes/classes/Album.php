@@ -33,12 +33,45 @@ class Album
     {
         return $this->title;
     }
+
     public function getArtist()
     {
         return new Artist($this->con, $this->artistId);
     }
+
     public function getArtworkPath()
     {
         return $this->artworkPath;
+    }
+
+    public function getNumberOfSongs()
+    {
+        $songsQuery = mysqli_prepare($this->con, "SELECT * FROM songs WHERE album = ?");
+        mysqli_stmt_bind_param($songsQuery, "i", $this->id);
+        mysqli_stmt_execute($songsQuery);
+        $result = mysqli_stmt_get_result($songsQuery);
+        $numberOfSongs = mysqli_num_rows($result);
+
+        if ($numberOfSongs == 1) {
+            return "1 song";
+        } else {
+            return "{$numberOfSongs} songs";
+        }
+    }
+
+    public function getSongIds()
+    {
+        $songsQuery = mysqli_prepare($this->con, "SELECT id FROM songs WHERE album = ? ORDER BY albumOrder ASC");
+        mysqli_stmt_bind_param($songsQuery, "i", $this->id);
+        mysqli_stmt_execute($songsQuery);
+        $result = mysqli_stmt_get_result($songsQuery);
+
+        $songIdArray = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($songIdArray, $row["id"]);
+        }
+
+        return $songIdArray;
     }
 }

@@ -8,6 +8,11 @@
   src: url("../fonts/Open_sans/OpenSans-Light.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "MateSC_Regular";
+  src: url("../fonts/Mate_Sc/MateSC-Regular.ttf") format("truetype");
+}
+
 @-webkit-keyframes GradientAnimation {
   0% {
     background-position: 36% 0%;
@@ -84,7 +89,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: "OpenSans-Regular";
+  font-family: "MateSC_Regular";
   height: 100%;
 }
 
