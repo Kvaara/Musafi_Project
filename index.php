@@ -20,22 +20,7 @@ if (isset($_SESSION["userSignedIn"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/index.styles.css">
     <title>Document</title>
-    <script>
-        // function Audio() {
-        //     const currentlyPlaying;
-        //     const audio = document.createElement("audio");
-
-        //     this.setTrack = (src) => {
-        //         audio.src = src;
-        //     }
-        // }
-
-        // let currentPlaylist = [];
-        // let audioElement;
-
-        // const audioElement = new Audio("./assets/songs/Niklas_Puganen/puganen-somesht.mp3");
-        // audioElement.play();
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 <body>

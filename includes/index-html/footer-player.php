@@ -44,12 +44,25 @@ if (isset($_GET['id'])) {
         }
     }
 
+    $.post("./includes/handlers/ajax/getSongJson.php", {
+        trackId: 1
+    }, (result) => {
+        const data = JSON.parse(result);
+        audioElement.src = data.path;
+    })
+
     const play = () => {
         audioElement.play();
+
+        document.querySelector("#player-play").style.display = "none"
+        document.querySelector("#player-pause").style.display = "inline";
     }
 
     const pause = () => {
         audioElement.pause();
+
+        document.querySelector("#player-pause").style.display = "none";
+        document.querySelector("#player-play").style.display = "inline";
     }
 </script>
 
@@ -72,8 +85,8 @@ if (isset($_GET['id'])) {
         <div id="player-controls">
             <img id="player-shuffle" src="./assets/img/player_shuffle.svg" alt="shuffle">
             <img id="player-left" src="./assets/img/player_left2.svg" alt="previous">
-            <img id="player-play" class="player-play-pause" src="./assets/img/player_play2.svg" alt="play">
-            <img id="player-pause" class="player-play-pause" src="./assets/img/player_pause.svg" alt="pause" style="display: none;">
+            <img id="player-play" class="player-play-pause" src="./assets/img/player_play2.svg" onclick="play()" alt="Play" title="Play">
+            <img id="player-pause" class="player-play-pause" src="./assets/img/player_pause.svg" onclick="pause()" alt="Pause" title="Pause" style="display: none;">
             <img id="player-right" src="./assets/img/player_right2.svg" alt="next">
             <img id="player-repeat" src="./assets/img/player_repeat.svg" alt="repeat">
         </div>
@@ -107,21 +120,3 @@ if (isset($_GET['id'])) {
     </div>
 
 </div>
-
-
-<script>
-    const playerPlayButton = document.querySelector("#player-play");
-    const playerPauseButton = document.querySelector("#player-pause");
-
-    playerPlayButton.addEventListener("click", () => {
-        playerPlayButton.style.display = "none";
-        playerPauseButton.style.display = "inline";
-        play();
-    })
-
-    playerPauseButton.addEventListener("click", () => {
-        playerPauseButton.style.display = "none";
-        playerPlayButton.style.display = "inline";
-        pause();
-    })
-</script>
