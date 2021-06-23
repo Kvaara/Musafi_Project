@@ -1,3 +1,58 @@
+<?php
+if (isset($_GET['id'])) {
+    $songsQuery = mysqli_query($con, "SELECT * FROM songs ORDER BY RAND() LIMIT 10");
+
+    $songsArray = [];
+
+    $songsQuery2 = mysqli_query($con, "SELECT * FROM songs where album = {$albumId} ORDER BY albumOrder ASC");
+
+    while ($row = mysqli_fetch_assoc($songsQuery)) {
+        array_push($songsArray, $row["path"]);
+    }
+
+    $songsTitleArray = [];
+    $songsPathArray = [];
+
+    while ($row = mysqli_fetch_assoc($songsQuery2)) {
+        array_push($songsTitleArray, $row["title"]);
+        array_push($songsPathArray, $row["path"]);
+    }
+
+    $songsJson = json_encode($songsArray);
+
+    $songsTitleArrayJson = json_encode($songsTitleArray);
+    $songsPathArrayJson = json_encode($songsPathArray);
+}
+
+?>
+
+<script>
+    let audioElement;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        currentPlaylist = <?php echo $songsJson ?>;
+        audioElement = new Audio();
+        // setTrack(currentPlaylist[0], currentPlaylist, false);
+    })
+
+    const setTrack = (trackId, newPlaylist, play) => {
+        audioElement.src = "./assets/songs/Niklas_Puganen/puganen-somesht.mp3";
+        if (play) {
+            audioElement.play();
+        } else {
+            audioElement.pause();
+        }
+    }
+
+    const play = () => {
+        audioElement.play();
+    }
+
+    const pause = () => {
+        audioElement.pause();
+    }
+</script>
+
 <div id="footer-player-container">
 
     <div id="current-song-container">
@@ -17,8 +72,8 @@
         <div id="player-controls">
             <img id="player-shuffle" src="./assets/img/player_shuffle.svg" alt="shuffle">
             <img id="player-left" src="./assets/img/player_left2.svg" alt="previous">
-            <img class="player-play-pause" src="./assets/img/player_play2.svg" alt="play">
-            <img class="player-play-pause" src="./assets/img/player_pause.svg" alt="pause" style="display: none;">
+            <img id="player-play" class="player-play-pause" src="./assets/img/player_play2.svg" alt="play">
+            <img id="player-pause" class="player-play-pause" src="./assets/img/player_pause.svg" alt="pause" style="display: none;">
             <img id="player-right" src="./assets/img/player_right2.svg" alt="next">
             <img id="player-repeat" src="./assets/img/player_repeat.svg" alt="repeat">
         </div>
@@ -52,3 +107,21 @@
     </div>
 
 </div>
+
+
+<script>
+    const playerPlayButton = document.querySelector("#player-play");
+    const playerPauseButton = document.querySelector("#player-pause");
+
+    playerPlayButton.addEventListener("click", () => {
+        playerPlayButton.style.display = "none";
+        playerPauseButton.style.display = "inline";
+        play();
+    })
+
+    playerPauseButton.addEventListener("click", () => {
+        playerPauseButton.style.display = "none";
+        playerPlayButton.style.display = "inline";
+        pause();
+    })
+</script>

@@ -63,7 +63,7 @@
   display: flex;
   flex-direction: column;
   gap: 5%;
-  height: 100%;
+  height: 39vh;
   overflow: auto;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -88,7 +88,7 @@
 }
 
 .album-song:hover {
-  background-color: #00000078;
+  background-color: #ffffff15;
 }
 
 .album-song:hover .album-song-lineup {

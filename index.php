@@ -20,9 +20,29 @@ if (isset($_SESSION["userSignedIn"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/index.styles.css">
     <title>Document</title>
+    <script>
+        // function Audio() {
+        //     const currentlyPlaying;
+        //     const audio = document.createElement("audio");
+
+        //     this.setTrack = (src) => {
+        //         audio.src = src;
+        //     }
+        // }
+
+        // let currentPlaylist = [];
+        // let audioElement;
+
+        // const audioElement = new Audio("./assets/songs/Niklas_Puganen/puganen-somesht.mp3");
+        // audioElement.play();
+    </script>
 </head>
 
 <body>
+
+    <script>
+
+    </script>
 
     <div id="flex-wrapper">
 
@@ -33,7 +53,7 @@ if (isset($_SESSION["userSignedIn"])) {
 
             <div id="application-page">
                 <header id="application-page-header">
-                    <h1> Welcome, <?php echo $userSignedIn ?>!</h1>
+                    <h1> Welcome to Musafi, <?php echo $userSignedIn ?>!</h1>
                 </header>
 
                 <section id="application-page-section">

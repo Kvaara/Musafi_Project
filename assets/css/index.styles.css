@@ -266,14 +266,13 @@ body {
 }
 
 #current-song-container #current-song-img {
-  max-width: 80px;
+  width: 5vw;
+  height: 11vh;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 @media only screen and (max-width: 480px) {
-  #current-song-container #current-song-img {
-    width: 50px;
-  }
   #current-song-container {
     padding-left: 5px;
   }
@@ -489,7 +488,9 @@ body {
   color: white;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #2c4c4e;
+  height: 10%;
+  text-align: center;
 }
 
 #application-page-albums {
