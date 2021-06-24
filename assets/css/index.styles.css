@@ -345,7 +345,7 @@ body {
 
 #volume-control-bar-progress {
   background-color: #6f0000;
-  width: 80%;
+  width: 0%;
   height: 8px;
   border-radius: 10px;
   transition: background-color 200ms ease-in-out;

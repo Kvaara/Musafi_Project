@@ -32,8 +32,11 @@ if (isset($_GET['id'])) {
     document.addEventListener("DOMContentLoaded", () => {
         currentPlaylist = <?php echo $songsJson ?>;
         audioElement = new Audio();
+        audioElement.volume = 0.1;
         // setTrack(currentPlaylist[0], currentPlaylist, false);
+        updateVolumeIcon(10, true);
         userProgressBarControl(audioElement);
+        userVolumeBarControl(audioElement);
     })
 
 
@@ -129,7 +132,7 @@ if (isset($_GET['id'])) {
         </div>
 
         <div id="player-progress">
-            <span id="current-time">0.00</span>
+            <span id="current-time">00:00</span>
             <div id="progress-bar">
                 <div id="progress-bar-bg">
                     <div id="progress">
@@ -143,9 +146,9 @@ if (isset($_GET['id'])) {
 
     <div id="volume-control-container">
         <span id="volume-control-btn">
-            <img class="volume-control-button-img" src="./assets/img/player_volume100.svg" alt="Volume 100%">
-            <img class="volume-control-button-img" src="" alt="Volume 50%" style="display: none;">
-            <img class="volume-control-button-img" src="" alt="Volume 0%" style="display: none;">
+            <img class="volume-control-button-img" id="volume-100" onclick="muteToggleVolume(true)" src="./assets/img/player_volume100.svg" alt="Volume 100%">
+            <img class="volume-control-button-img" id="volume-50" onclick="muteToggleVolume(true)" src="./assets/img/player_volume50.svg" alt="Volume 50%" style="display: none;">
+            <img class="volume-control-button-img" id="volume-0" onclick="muteToggleVolume(false)" src="./assets/img/player_volume0.svg" alt="Volume 0%" style="display: none;">
         </span>
         <div id="volume-control-bar">
             <div id="volume-control-bar-bg">
