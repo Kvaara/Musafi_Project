@@ -107,6 +107,7 @@ $artistName = $artist->getName();
 
 <script src="./assets/js/index.script.js"></script>
 <script src="./assets/js/play-pause.script.js"></script>
+<script src="./assets/js/footer-player.script.js"></script>
 
 <script>
     const currentSongImage = document.querySelector("#current-song-img");

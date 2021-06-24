@@ -260,9 +260,9 @@ body {
 #progress {
   background-color: #6f0000;
   height: 8px;
-  width: 50%;
+  width: 0%;
   border-radius: 10px;
-  transition: background-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out, width 200ms ease-in-out !important;
 }
 
 #current-song-container #current-song-img {

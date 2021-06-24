@@ -33,7 +33,10 @@ if (isset($_GET['id'])) {
         currentPlaylist = <?php echo $songsJson ?>;
         audioElement = new Audio();
         // setTrack(currentPlaylist[0], currentPlaylist, false);
+        userProgressBarControl(audioElement);
     })
+
+
 
     const setTrack = (trackId, newPlaylist, play) => {
         audioElement.src = "./assets/songs/Niklas_Puganen/puganen-somesht.mp3";
@@ -47,11 +50,45 @@ if (isset($_GET['id'])) {
     $.post("./includes/handlers/ajax/getSongJson.php", {
         trackId: 1
     }, (result) => {
-        const data = JSON.parse(result);
-        audioElement.src = data.path;
+        const trackData = JSON.parse(result);
+
+
+        audioElement.src = trackData.path;
+        audioElement.currentTrack = trackData;
+
+        updateCurrentTimeLeft(audioElement);
+        updateCurrentTimeAndProgressBar(audioElement);
+
+        document.querySelector("#current-song-name").textContent = trackData.title;
+
+        $.post("./includes/handlers/ajax/getArtistJson.php", {
+            artistId: trackData.artist
+        }, (result) => {
+            const artistName = JSON.parse(result);
+
+            document.querySelector("#current-song-author").textContent = `by ${artistName.name}`;
+        })
+
+        $.post("./includes/handlers/ajax/getAlbumJson.php", {
+            albumId: trackData.album
+        }, (result) => {
+            const albumData = JSON.parse(result);
+
+            document.querySelector("#current-song-img").src = albumData.artworkPath;
+        })
+
     })
 
     const play = () => {
+
+        if (audioElement.currentTime === 0) {
+            $.post("./includes/handlers/ajax/updatePlays.php", {
+                trackId: audioElement.currentTrack.id
+            }, () => {
+                console.log("updated");
+            })
+        }
+
         audioElement.play();
 
         document.querySelector("#player-play").style.display = "none"
@@ -71,12 +108,12 @@ if (isset($_GET['id'])) {
     <div id="current-song-container">
 
         <span id="current-song-link">
-            <img id="current-song-img" src="./assets/img/profile-pics/frog_pic.png" alt="Link to song">
+            <img id="current-song-img" alt="Link to song">
         </span>
         <div id="current-song-info">
-            <span id="current-song-name">Seventh Road Ahead</span>
+            <span id="current-song-name"></span>
             <br>
-            <span id="current-song-author">By Niklas Puganen</span>
+            <span id="current-song-author"></span>
         </div>
 
     </div>
@@ -100,7 +137,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
             </div>
-            <span id="current-time-left">4.00</span>
+            <span id="current-time-left"></span>
         </div>
     </div>
 
