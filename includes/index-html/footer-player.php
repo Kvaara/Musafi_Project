@@ -38,7 +38,7 @@ if (isset($_GET['id'])) {
         updateVolumeIcon(10, true);
         userProgressBarControl(audioElement);
         userVolumeBarControl(audioElement);
-
+        onAudioEnd(audioElement);
         console.log("lol", audioElement.currentPlaylist.length);
     })
 

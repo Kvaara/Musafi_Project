@@ -1,3 +1,18 @@
+const onAudioEnd = (audioElement) => {
+  audioElement.onended = () => {
+    if (
+      audioElement.currentTrack.albumOrder < audioElement.currentPlaylist.length
+    ) {
+      const nextTrack = audioElement.currentTrack.albumOrder + 1;
+      setNewTrack(audioElement, nextTrack, () => {
+        resetButtonStates();
+        doPlayAudio(audioElement, true);
+        updateFooterPlayerTrackInfo(audioElement);
+      });
+    }
+  };
+};
+
 const updateCurrentTimeLeft = (audioElement) => {
   audioElement.oncanplay = () => {
     const duration = new Date(audioElement.duration * 1000)
@@ -141,7 +156,7 @@ const doPlayAudio = (audioElement, doPlayAudio) => {
           trackId: audioElement.currentTrack.id,
         },
         () => {
-          console.log("updated");
+          console.log("Song's count updated by one");
         }
       );
     }

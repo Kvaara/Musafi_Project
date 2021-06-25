@@ -135,9 +135,6 @@ $artistName = $artist->getName();
         const orderInAlbum = currentTrack.albumOrder;
         const pageAlbumId = <?php echo $_GET["id"] ?>;
 
-        console.log("current track", currentTrack);
-        console.log("current playlist", audioElement.currentPlaylist);
-
         if (trackAlbumId === pageAlbumId && isPlayPressed) {
             albumButtonsArray.playButtons[orderInAlbum - 1].style.display = "none";
             albumButtonsArray.pauseButtons[orderInAlbum - 1].style.display = "inline";
