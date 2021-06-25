@@ -127,3 +127,153 @@ const muteToggleVolume = (doMuteVolume) => {
     updateVolumeIcon(previousVolume * 100, true);
   }
 };
+
+const doPlayAudio = (audioElement, doPlayAudio) => {
+  if (doPlayAudio) {
+    audioElement.play();
+    document.querySelector("#player-pause").style.display = "inline";
+    document.querySelector("#player-play").style.display = "none";
+
+    if (audioElement.currentTime === 0) {
+      $.post(
+        "./includes/handlers/ajax/updatePlays.php",
+        {
+          trackId: audioElement.currentTrack.id,
+        },
+        () => {
+          console.log("updated");
+        }
+      );
+    }
+    updateButtonStates(audioElement.currentTrack, true);
+  } else {
+    audioElement.pause();
+    document.querySelector("#player-play").style.display = "inline";
+    document.querySelector("#player-pause").style.display = "none";
+    updateButtonStates(audioElement.currentTrack, false);
+  }
+};
+
+const isRepeatOn = (audioElement, putRepeatOn, bindedThis) => {
+  if (putRepeatOn && !bindedThis.classList.contains("toggled")) {
+    bindedThis.classList.add("toggled");
+    audioElement.loop = true;
+  } else {
+    bindedThis.classList.remove("toggled");
+    audioElement.loop = false;
+  }
+};
+
+const isShuffleOn = (audioElement, putShuffleOn, bindedThis) => {
+  if (isShuffleOn && !bindedThis.classList.contains("toggled")) {
+    bindedThis.classList.add("toggled");
+  } else {
+    bindedThis.classList.remove("toggled");
+  }
+};
+
+const setNewTrack = (audioElement, trackId, callBack) => {
+  $.post(
+    "./includes/handlers/ajax/getSongJson.php",
+    {
+      trackId,
+      albumId: audioElement.currentTrack.album,
+    },
+    (result) => {
+      const trackData = JSON.parse(result);
+      audioElement.currentTrack = trackData;
+      audioElement.src = trackData.path;
+      return callBack();
+    }
+  );
+};
+
+const getCurrentTrack = (audioElement, callBack) => {
+  $.post(
+    "./includes/handlers/ajax/getSongJson.php",
+    {
+      trackId: audioElement.currentTrack.albumOrder,
+      albumId: audioElement.currentTrack.album,
+    },
+    (result) => {
+      const trackData = JSON.parse(result);
+      return callBack(trackData);
+    }
+  );
+};
+
+const previousOrNextSong = (audioElement, isNext) => {
+  if (isNext) {
+    const nextTrackInAlbum = audioElement.currentTrack.albumOrder + 1;
+
+    if (nextTrackInAlbum > audioElement.currentPlaylist.length) {
+      setNewTrack(audioElement, 1, () => {
+        resetButtonStates();
+        doPlayAudio(audioElement, true);
+        updateFooterPlayerTrackInfo(audioElement);
+      });
+    } else {
+      setNewTrack(audioElement, nextTrackInAlbum, () => {
+        resetButtonStates();
+        doPlayAudio(audioElement, true);
+        updateFooterPlayerTrackInfo(audioElement);
+      });
+    }
+  } else {
+    const previousTrackInAlbum = audioElement.currentTrack.albumOrder - 1;
+
+    if (previousTrackInAlbum <= 0) {
+      audioElement.load();
+      doPlayAudio(audioElement, true);
+    } else {
+      setNewTrack(audioElement, previousTrackInAlbum, () => {
+        resetButtonStates();
+        doPlayAudio(audioElement, true);
+        updateFooterPlayerTrackInfo(audioElement);
+      });
+    }
+  }
+};
+
+const updateFooterPlayerTrackInfo = (audioElement) => {
+  $.post(
+    "./includes/handlers/ajax/getSongJson.php",
+    {
+      trackId: audioElement.currentTrack.albumOrder,
+      albumId: audioElement.currentTrack.album,
+    },
+    (result) => {
+      const trackData = JSON.parse(result);
+
+      document.querySelector("#current-song-name").textContent =
+        trackData.title;
+
+      $.post(
+        "./includes/handlers/ajax/getArtistJson.php",
+        {
+          artistId: trackData.artist,
+        },
+        (result) => {
+          const artistName = JSON.parse(result);
+
+          document.querySelector(
+            "#current-song-author"
+          ).textContent = `by ${artistName.name}`;
+        }
+      );
+
+      $.post(
+        "./includes/handlers/ajax/getAlbumJson.php",
+        {
+          albumId: trackData.album,
+        },
+        (result) => {
+          const albumData = JSON.parse(result);
+
+          document.querySelector("#current-song-img").src =
+            albumData.artworkPath;
+        }
+      );
+    }
+  );
+};

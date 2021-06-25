@@ -120,7 +120,7 @@ $artistName = $artist->getName();
     const albumSongTitles = <?php echo $songsTitleArrayJson ?>;
     const albumSongPaths = <?php echo $songsPathArrayJson ?>;
 
-    const resetButtonStates = (pauseButtonsArray, playButtonsArray) => {
+    const resetButtonStates = (pauseButtonsArray = albumButtonsArray.pauseButtons, playButtonsArray = albumButtonsArray.playButtons) => {
         pauseButtonsArray.forEach((pauseButton) => {
             pauseButton.style.display = "none";
         })
@@ -130,28 +130,48 @@ $artistName = $artist->getName();
         })
     }
 
+    const updateButtonStates = (currentTrack, isPlayPressed) => {
+        const trackAlbumId = currentTrack.album;
+        const orderInAlbum = currentTrack.albumOrder;
+        const pageAlbumId = <?php echo $_GET["id"] ?>;
+
+        console.log("current track", currentTrack);
+        console.log("current playlist", audioElement.currentPlaylist);
+
+        if (trackAlbumId === pageAlbumId && isPlayPressed) {
+            albumButtonsArray.playButtons[orderInAlbum - 1].style.display = "none";
+            albumButtonsArray.pauseButtons[orderInAlbum - 1].style.display = "inline";
+            albumButtonsArray.pauseButtons[orderInAlbum - 1].style.visibility = "visible";
+        } else if (trackAlbumId === pageAlbumId && !isPlayPressed) {
+            albumButtonsArray.pauseButtons[orderInAlbum - 1].style.display = "none";
+            albumButtonsArray.playButtons[orderInAlbum - 1].style.display = "inline";
+        }
+    }
+
     albumButtonsArray.playButtons.forEach((playButton, index) => {
         playButton.addEventListener("click", () => {
             resetButtonStates(albumButtonsArray.pauseButtons, albumButtonsArray.playButtons);
 
-            currentSongImage.src = "<?php echo $albumArtWorkPath ?>";
-            currentSongInfo.firstElementChild.textContent = albumSongTitles[index];
-            currentSongInfo.lastElementChild.textContent = "<?php echo $artistName ?>";
-            audioElement.src = albumSongPaths[index];
-            audioElement.play();
+            const isSongTheSame = audioElement.src.includes(albumSongPaths[index].slice(1));
+            if (!isSongTheSame) {
+                audioElement.src = albumSongPaths[index];
+            }
+
+            setNewTrack(audioElement, index + 1, () => {
+                doPlayAudio(audioElement, true);
+                updateFooterPlayerTrackInfo(audioElement);
+
+            })
 
             playButton.style.display = "none";
             albumButtonsArray.pauseButtons[index].style.display = "inline";
             albumButtonsArray.pauseButtons[index].style.visibility = "visible";
-
-            playerPlayButton.style.display = "none";
-            playerPauseButton.style.display = "inline";
         })
     })
 
     albumButtonsArray.pauseButtons.forEach((pauseButton, index) => {
         pauseButton.addEventListener("click", () => {
-            audioElement.pause();
+            doPlayAudio(audioElement, false);
             pauseButton.style.display = "none";
             albumButtonsArray.playButtons[index].style.display = "inline";
         })

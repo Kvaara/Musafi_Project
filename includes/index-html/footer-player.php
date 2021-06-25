@@ -1,6 +1,6 @@
 <?php
 if (isset($_GET['id'])) {
-    $songsQuery = mysqli_query($con, "SELECT * FROM songs ORDER BY RAND() LIMIT 10");
+    $songsQuery = mysqli_query($con, "SELECT * FROM songs WHERE album = {$_GET['id']}");
 
     $songsArray = [];
 
@@ -30,13 +30,16 @@ if (isset($_GET['id'])) {
     let audioElement;
 
     document.addEventListener("DOMContentLoaded", () => {
-        currentPlaylist = <?php echo $songsJson ?>;
+        const currentPlaylist = <?php echo $songsJson ?>;
         audioElement = new Audio();
         audioElement.volume = 0.1;
+        audioElement.currentPlaylist = currentPlaylist;
         // setTrack(currentPlaylist[0], currentPlaylist, false);
         updateVolumeIcon(10, true);
         userProgressBarControl(audioElement);
         userVolumeBarControl(audioElement);
+
+        console.log("lol", audioElement.currentPlaylist.length);
     })
 
 
@@ -51,7 +54,8 @@ if (isset($_GET['id'])) {
     }
 
     $.post("./includes/handlers/ajax/getSongJson.php", {
-        trackId: 1
+        trackId: 1,
+        albumId: <?php echo $_GET["id"] ?>
     }, (result) => {
         const trackData = JSON.parse(result);
 
@@ -82,28 +86,28 @@ if (isset($_GET['id'])) {
 
     })
 
-    const play = () => {
+    // const play = () => {
 
-        if (audioElement.currentTime === 0) {
-            $.post("./includes/handlers/ajax/updatePlays.php", {
-                trackId: audioElement.currentTrack.id
-            }, () => {
-                console.log("updated");
-            })
-        }
+    //     if (audioElement.currentTime === 0) {
+    //         $.post("./includes/handlers/ajax/updatePlays.php", {
+    //             trackId: audioElement.currentTrack.id
+    //         }, () => {
+    //             console.log("updated");
+    //         })
+    //     }
 
-        audioElement.play();
+    //     audioElement.play();
 
-        document.querySelector("#player-play").style.display = "none"
-        document.querySelector("#player-pause").style.display = "inline";
-    }
+    //     document.querySelector("#player-play").style.display = "none"
+    //     document.querySelector("#player-pause").style.display = "inline";
+    // }
 
-    const pause = () => {
-        audioElement.pause();
+    // const pause = () => {
+    //     audioElement.pause();
 
-        document.querySelector("#player-pause").style.display = "none";
-        document.querySelector("#player-play").style.display = "inline";
-    }
+    //     document.querySelector("#player-pause").style.display = "none";
+    //     document.querySelector("#player-play").style.display = "inline";
+    // }
 </script>
 
 <div id="footer-player-container">
@@ -123,12 +127,12 @@ if (isset($_GET['id'])) {
 
     <div id="player-control-container">
         <div id="player-controls">
-            <img id="player-shuffle" src="./assets/img/player_shuffle.svg" alt="shuffle">
-            <img id="player-left" src="./assets/img/player_left2.svg" alt="previous">
-            <img id="player-play" class="player-play-pause" src="./assets/img/player_play2.svg" onclick="play()" alt="Play" title="Play">
-            <img id="player-pause" class="player-play-pause" src="./assets/img/player_pause.svg" onclick="pause()" alt="Pause" title="Pause" style="display: none;">
-            <img id="player-right" src="./assets/img/player_right2.svg" alt="next">
-            <img id="player-repeat" src="./assets/img/player_repeat.svg" alt="repeat">
+            <img id="player-shuffle" src="./assets/img/player_shuffle.svg" onclick="isShuffleOn(audioElement, true, this)" alt="shuffle">
+            <img id="player-left" src="./assets/img/player_left2.svg" onclick="previousOrNextSong(audioElement, false)" alt="previous">
+            <img id="player-play" class="player-play-pause" src="./assets/img/player_play2.svg" onclick="doPlayAudio(audioElement, true)" alt="Play" title="Play">
+            <img id="player-pause" class="player-play-pause" src="./assets/img/player_pause.svg" onclick="doPlayAudio(audioElement, false)" alt="Pause" title="Pause" style="display: none;">
+            <img id="player-right" src="./assets/img/player_right2.svg" onclick="previousOrNextSong(audioElement, true)" alt="next">
+            <img id="player-repeat" src="./assets/img/player_repeat.svg" onclick="isRepeatOn(audioElement, true, this)" alt="repeat">
         </div>
 
         <div id="player-progress">

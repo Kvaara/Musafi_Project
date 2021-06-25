@@ -211,7 +211,7 @@ body {
 #player-shuffle,
 #player-repeat {
   width: 30px;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   border: 1px solid transparent;
   transition: transform 150ms ease-in-out, filter 100ms ease-in-out,
     border 500ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -225,6 +225,25 @@ body {
   filter: invert(10%) sepia(36%) saturate(6264%) hue-rotate(10deg)
     brightness(114%) contrast(131%);
   border: 1px solid #6f0000;
+  transition: border-radius 200ms ease-in-out, transform 200ms ease-in-out;
+}
+
+.toggled#player-shuffle {
+  transform: scale(1.2);
+  filter: invert(10%) sepia(36%) saturate(6264%) hue-rotate(10deg)
+    brightness(114%) contrast(131%);
+  border: 1px solid #6f0000;
+  border-radius: 5px;
+  transition: border-radius 200ms ease-in-out, border 200ms ease-in-out;
+}
+
+.toggled#player-repeat {
+  transform: scale(1.2);
+  filter: invert(10%) sepia(36%) saturate(6264%) hue-rotate(10deg)
+    brightness(114%) contrast(131%);
+  border: 1px solid #6f0000;
+  border-radius: 5px;
+  transition: border-radius 200ms ease-in-out, border 200ms ease-in-out;
 }
 
 #player-progress {
@@ -262,7 +281,7 @@ body {
   height: 8px;
   width: 0%;
   border-radius: 10px;
-  transition: background-color 200ms ease-in-out, width 200ms ease-in-out !important;
+  transition: background-color 200ms ease-in-out;
 }
 
 #current-song-container #current-song-img {
