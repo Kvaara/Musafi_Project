@@ -39,6 +39,7 @@ $artistName = $artist->getName();
     <link rel="stylesheet" href="./assets/css/album.styles.css">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="./assets/js/album-page.script.js"></script>
 </head>
 
 <body>
@@ -54,7 +55,7 @@ $artistName = $artist->getName();
                 <header id="application-page-header">
                     <h1 id="header-album-title">
                         <?php echo $albumTitle ?>
-                        <span id="header-album-artist"> by <?php echo $artistName ?></span>
+                        <span id="header-album-artist"> by <?php echo $artistName ?>, 2021</span>
                     </h1>
                 </header>
 
@@ -63,7 +64,25 @@ $artistName = $artist->getName();
                     <div id="application-page-album">
                         <img id="album-artwork" src="<?php echo $album->getArtworkPath(); ?>" alt="Album image">
                         <div id="album-songs-wrapper">
-                            <span id="album-songs-count"> <?php echo $album->getNumberOfSongs(); ?></span>
+                            <div id="album-info">
+                                <span id="album-songs-count"> <?php echo $album->getNumberOfSongs(); ?></span>
+                                <div class="album-info-container" id="album-play-all-container" onclick="addAlbumToQueue(audioElement, <?php echo $albumId ?>)">
+                                    <img class="album-info-image" src="./assets/img/album_add_to_queue.svg" alt="To queue" title="Add album to playlist">
+                                    <span class="album-info-text">Play all</span>
+                                </div>
+                                <div class="album-info-container" id="album-to-playlist-container">
+                                    <img class="album-info-image" src="./assets/img/album_add_to_playlist.svg" alt="To playlist" title="Add album to playlist">
+                                    <span class="album-info-text">To playlist</span>
+                                </div>
+                                <div class="album-info-container" id="album-favorite-container">
+                                    <img class="album-info-image" src="./assets/img/album_add_to_favorites.svg" alt="To favorite" title="Add album to playlist">
+                                    <span class="album-info-text">Favourite</span>
+                                </div>
+                                <div class="album-info-container" id="album-share-container">
+                                    <img class="album-info-image" src="./assets/img/album_share.svg" alt="To share" title="Add album to playlist">
+                                    <span class="album-info-text">Share</span>
+                                </div>
+                            </div>
                             <div id="album-songs-list-container">
 
                                 <?php
@@ -87,7 +106,17 @@ $artistName = $artist->getName();
                             ";
                                 }
                                 ?>
-
+                            </div>
+                            <div id="album-tags-container">
+                                <h2 id="album-tags-text">TAGS:</h2>
+                                <div id="album-tags-list-container">
+                                    <?php
+                                    $albumGenres = $album->getAlbumGenres();
+                                    foreach ($albumGenres as $genre) {
+                                        echo "<span>{$genre}</span>";
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -106,7 +135,7 @@ $artistName = $artist->getName();
 </body>
 
 <script src="./assets/js/index.script.js"></script>
-<script src="./assets/js/play-pause.script.js"></script>
+<script src="./assets/js/album-play-buttons.script.js"></script>
 <script src="./assets/js/footer-player.script.js"></script>
 
 <script>

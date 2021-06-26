@@ -74,4 +74,17 @@ class Album
 
         return $songIdArray;
     }
+
+    public function getAlbumGenres()
+    {
+        $albumsQuery = mysqli_query($this->con, "SELECT DISTINCT genres.name FROM songs INNER JOIN genres ON songs.album = {$this->id} AND songs.genre = genres.id");
+
+        $albumGenresArray = [];
+
+        while ($row = mysqli_fetch_assoc($albumsQuery)) {
+            array_push($albumGenresArray, $row["name"]);
+        }
+
+        return $albumGenresArray;
+    }
 }

@@ -219,7 +219,12 @@ body {
     brightness(108%) contrast(102%);
 }
 
-#player-shuffle:hover,
+#player-shuffle:hover {
+  transform: scale(1.2);
+  filter: invert(10%) sepia(36%) saturate(6264%) hue-rotate(10deg)
+    brightness(114%) contrast(131%);
+}
+
 #player-repeat:hover {
   transform: scale(1.2);
   filter: invert(10%) sepia(36%) saturate(6264%) hue-rotate(10deg)

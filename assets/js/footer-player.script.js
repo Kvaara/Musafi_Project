@@ -10,6 +10,7 @@ const onAudioEnd = (audioElement) => {
         updateFooterPlayerTrackInfo(audioElement);
       });
     }
+    resetButtonStates();
   };
 };
 
@@ -179,11 +180,43 @@ const isRepeatOn = (audioElement, putRepeatOn, bindedThis) => {
   }
 };
 
+// TODO Make the shuffle button better (it's no more a toggle button. It only shuffles the current playlist the user has)
+// TODO Clean out the code. Refactor the damnation out of this... Also think better on how you will implement this system
+// TODO The user can choose their own playlist and that playlist will be saved in here
+// TODO So immediately when the page loads don't do anything but CREATE THE AUDIO ELEMENT
+// TODO SO FOOTER play bar will be empty UNTIL USER CLICKS PLAY ALL OR ADDS TO A PLAYLIST
+// TODO PLAY ALL SIMPLY ADDS ALL SONGS TO A PLAYLIST
+// TODO ADD TO PLAYLIST GIVES USER A CHOICE TO MAKE HIS/HER OWN PLAYLIST AND RENAME IT AND ADD ALL OF THE ALBUM'S SONGS IN THERE
+// TODO FAVORITE ADDS THE ALBUM TO THE USERS FAVORITES. THE AMOUNT OF TIMES USERS HAVE FAVORITED ALBUMS WILL BE SHOWN!
+// TODO SHARE OPENS UP DIFFERENT SOCIAL MEDIA PLACES WHERE THE USER CAN SHARE THE ALBUM
+
 const isShuffleOn = (audioElement, putShuffleOn, bindedThis) => {
-  if (isShuffleOn && !bindedThis.classList.contains("toggled")) {
-    bindedThis.classList.add("toggled");
+  //&& !bindedThis.classList.contains("toggled") inside below if statement
+  if (putShuffleOn) {
+    // bindedThis.classList.add("toggled");
+
+    $.post(
+      "./includes/handlers/ajax/shuffleAlbumSongsJson.php",
+      {
+        albumId: audioElement.currentTrack.album,
+      },
+      (result) => {
+        const albumRandomized = JSON.parse(result);
+        let newPlaylist = [];
+        albumRandomized.forEach((song) => {
+          newPlaylist.push(song.path);
+        });
+        audioElement.currentPlaylist = newPlaylist;
+        audioElement.src = albumRandomized[0].path;
+        audioElement.currentTrack = albumRandomized[0];
+        audioElement.tracks = albumRandomized;
+        resetButtonStates();
+        doPlayAudio(audioElement, true);
+      }
+    );
   } else {
-    bindedThis.classList.remove("toggled");
+    // bindedThis.classList.remove("toggled");
+    // addAlbumToQueue(audioElement, audioElement.currentTrack.album);
   }
 };
 
@@ -219,33 +252,65 @@ const getCurrentTrack = (audioElement, callBack) => {
 
 const previousOrNextSong = (audioElement, isNext) => {
   if (isNext) {
-    const nextTrackInAlbum = audioElement.currentTrack.albumOrder + 1;
+    // const nextTrackInAlbum = audioElement.currentTrack.albumOrder + 1;
+    // const nextTrackInPlaylist = audioElement.currentPlaylist;
+    const nextAudioIndex =
+      audioElement.tracks.findIndex(
+        (track) => track === audioElement.currentTrack
+      ) + 1;
 
-    if (nextTrackInAlbum > audioElement.currentPlaylist.length) {
-      setNewTrack(audioElement, 1, () => {
-        resetButtonStates();
-        doPlayAudio(audioElement, true);
-        updateFooterPlayerTrackInfo(audioElement);
-      });
+    if (nextAudioIndex === audioElement.tracks.length) {
+      //   setNewTrack(audioElement, 1, () => {
+      //     resetButtonStates();
+      //     doPlayAudio(audioElement, true);
+      //     updateFooterPlayerTrackInfo(audioElement);
+      //   });
+      audioElement.src = audioElement.currentPlaylist[0];
+      audioElement.currentTrack = audioElement.tracks[0];
+      resetButtonStates();
+      doPlayAudio(audioElement, true);
+      updateFooterPlayerTrackInfo(audioElement);
     } else {
-      setNewTrack(audioElement, nextTrackInAlbum, () => {
-        resetButtonStates();
-        doPlayAudio(audioElement, true);
-        updateFooterPlayerTrackInfo(audioElement);
-      });
+      //   setNewTrack(audioElement, nextTrackInAlbum, () => {
+      //     resetButtonStates();
+      //     doPlayAudio(audioElement, true);
+      //     updateFooterPlayerTrackInfo(audioElement);
+      //   });
+      //   console.log(nextAudioIndex);
+      audioElement.src = audioElement.currentPlaylist[nextAudioIndex];
+      audioElement.currentTrack = audioElement.tracks[nextAudioIndex];
+      resetButtonStates();
+      doPlayAudio(audioElement, true);
+      updateFooterPlayerTrackInfo(audioElement);
+      //   console.log("tracks", audioElement.tracks);
     }
   } else {
-    const previousTrackInAlbum = audioElement.currentTrack.albumOrder - 1;
-
-    if (previousTrackInAlbum <= 0) {
-      audioElement.load();
+    // const previousTrackInAlbum = audioElement.currentTrack.albumOrder - 1;
+    const previousAudioIndex =
+      audioElement.tracks.findIndex(
+        (track) => track === audioElement.currentTrack
+      ) - 1;
+    if (previousAudioIndex <= 0) {
+      //   audioElement.load();
+      //   doPlayAudio(audioElement, true);
+      audioElement.src =
+        audioElement.currentPlaylist[audioElement.tracks.length - 1];
+      audioElement.currentTrack =
+        audioElement.tracks[audioElement.tracks.length - 1];
+      resetButtonStates();
       doPlayAudio(audioElement, true);
+      updateFooterPlayerTrackInfo(audioElement);
     } else {
-      setNewTrack(audioElement, previousTrackInAlbum, () => {
-        resetButtonStates();
-        doPlayAudio(audioElement, true);
-        updateFooterPlayerTrackInfo(audioElement);
-      });
+      //   setNewTrack(audioElement, previousTrackInAlbum, () => {
+      //     resetButtonStates();
+      //     doPlayAudio(audioElement, true);
+      //     updateFooterPlayerTrackInfo(audioElement);
+      //   });
+      audioElement.src = audioElement.currentPlaylist[previousAudioIndex];
+      audioElement.currentTrack = audioElement.tracks[previousAudioIndex];
+      resetButtonStates();
+      doPlayAudio(audioElement, true);
+      updateFooterPlayerTrackInfo(audioElement);
     }
   }
 };
@@ -289,6 +354,20 @@ const updateFooterPlayerTrackInfo = (audioElement) => {
             albumData.artworkPath;
         }
       );
+    }
+  );
+};
+
+const setAlbumTracks = (audioElement, albumId) => {
+  $.post(
+    "./includes/handlers/ajax/getAllSongsJson.php",
+    {
+      albumId,
+    },
+    (result) => {
+      const listOfSongsInAlbum = JSON.parse(result);
+      console.log(listOfSongsInAlbum);
+      audioElement.tracks = listOfSongsInAlbum;
     }
   );
 };
