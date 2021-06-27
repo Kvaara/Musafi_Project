@@ -15,9 +15,13 @@ class Account
     {
         $password = sha1($password);
 
-        $query = mysqli_query($this->con, "SELECT * FROM users WHERE  username='$username' AND password='$password'");
+        // $query = mysqli_query($this->con, "SELECT * FROM users WHERE  username='$username' AND password='$password'");
+        $query = mysqli_prepare($this->con, "SELECT * FROM users WHERE  username = ? AND password = ?");
+        mysqli_stmt_bind_param($query, "ss", $username, $password);
+        mysqli_stmt_execute($query);
+        $result = mysqli_stmt_get_result($query);
 
-        if (mysqli_num_rows($query) == 1) {
+        if (mysqli_num_rows($result) == 1) {
             return true;
         } else {
             array_push($this->error, Constants::$loginFailure);
@@ -51,13 +55,16 @@ class Account
 
     private function insertUserDetails($username, $fname, $lname, $email, $password)
     {
-        $encryptedPassword = sha1($password);
+        // $encryptedPassword = sha1($password);
+        $encryptedPassword = password_hash($password, PASSWORD_BCRYPT, ["cost" => 12]);
         $profilePic = "./assets/img/profile-pics/frog_pic.png";
         $date = date("d-m-Y");
 
-        $result = mysqli_query($this->con, "INSERT INTO users VALUE ('', '$username', '$fname', '$lname', '$email', '$encryptedPassword', '$date', '$profilePic')");
+        $query = mysqli_prepare($this->con, "INSERT INTO users VALUE ('', ?, ?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($query, "sssssss", $username, $fname, $lname, $email, $encryptedPassword, $date, $profilePic);
+        $wasInserted = mysqli_stmt_execute($query);
 
-        return $result;
+        return $wasInserted;
     }
 
     private function validateUsername($username)
