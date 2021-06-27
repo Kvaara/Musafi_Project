@@ -109,8 +109,8 @@ function saveInputValue($name)
                     <input type="password" id="signup-password-confirm" name="signup-password-confirm" placeholder="Confirm the password..." required maxlength="25">
                 </p>
 
-                <button type="button" name="back-btn" class="back-btn" id="signup-back-btn"><span class="arrow-back-span">&#8678; </span> BACK</BUTTON>
                 <button type="submit" name="signup-btn" id="signup-btn">SIGN UP</button>
+                <button type="button" name="back-btn" class="back-btn" id="signup-back-btn"><span class="arrow-back-span">&#8678; </span> BACK</BUTTON>
             </form>
 
         </div>
@@ -132,7 +132,6 @@ if (isset($_POST["signup-btn"])) {
 
     toSignUpPost.style.display = 'none';
     toSignInPost.style.display = 'none';
-    signUpFormPost.style.display = 'block';
     </script>";
 } else if (isset($_POST["signin-btn"])) {
     echo "<script> 
@@ -144,7 +143,6 @@ if (isset($_POST["signup-btn"])) {
     
     toSignUpPost.style.display = 'none';
     toSignInPost.style.display = 'none';
-    signInFormPost.style.display = 'block';
     </script>";
 }
 ?>

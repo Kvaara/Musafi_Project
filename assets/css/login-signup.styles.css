@@ -87,20 +87,23 @@ body {
 }
 
 #input-container {
+  display: flex;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-evenly;
-  width: 1300px;
+  /*   width: 1300px; */
   background: rgb(0 0 0 / 50%);
   border: 2px solid #200122;
   box-shadow: 0px 4px 20px 10px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
-  height: 525px;
-  align-items: center;
+  height: 70%;
+  width: 70%;
+  /*   align-items: center; */
   transition: 300ms ease-in-out;
+  flex-direction: column;
 }
 
 #input-container:hover {
@@ -108,26 +111,35 @@ body {
 }
 
 #to-signin {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  /*   position: relative; */
   cursor: pointer;
-  bottom: 30px;
-  /*   box-shadow: 0px 10px 0px 0px white; */
+  /*   bottom: 30px; */
+  /*     box-shadow: 0px 10px 0px 0px white; */
+  /*   justify-content: center; */
+  /*   align-items: center; */
+  /*   flex: 1 1 auto; */
 }
 
 #to-signin > h2 {
   letter-spacing: 3px;
-  font-size: 45px;
+  /*   font-size: 45px; */
+  font-size: 3vw;
   color: #28464b;
   transition: 0.2s ease-in-out;
+  margin: 10px 0 0 0;
+  text-align: center;
 }
 
 #to-signin > span {
   letter-spacing: 3px;
-  display: block;
+  /*   display: block; */
   text-align: center;
-  font-size: 20px;
+  font-size: 1.5vw;
   transition: 0.2s ease-in-out;
   color: #28464b;
+  white-space: nowrap;
 }
 
 #to-signin:hover > h2 {
@@ -142,19 +154,19 @@ body {
 }
 
 #signin-form > p > label {
-  display: block;
-  font-size: 23px;
-  position: relative;
-  bottom: 1px;
+  display: flex;
+  font-size: 2vw;
+  /*   position: relative; */
+  /*   bottom: 1px; */
   color: white;
 }
 
 #signin-form > p > input {
   text-align: center;
   color: white;
-  font-size: 20px;
+  font-size: 1.5vw;
   padding: 10px;
-  height: 35px;
+  /*   height: 35px; */
   background-color: transparent;
   border: none;
   border-bottom: solid 1px white;
@@ -165,25 +177,33 @@ body {
 }
 
 #to-signup {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  /*   position: relative; */
   cursor: pointer;
-  bottom: 30px;
+  /*   bottom: 30px; */
+  /*   flex: 1 1 auto; */
+  /*   justify-content: center; */
+  /*   align-items: center; */
 }
 
 #to-signup > h2 {
   letter-spacing: 3px;
-  font-size: 45px;
+  font-size: 3vw;
   color: #28464b;
   transition: 0.2s ease-in-out;
+  margin: 10px 0 0 0;
+  text-align: center;
 }
 
 #to-signup > span {
-  display: block;
+  /*   display: block; */
   text-align: center;
-  font-size: 20px;
+  font-size: 1.5vw;
   transition: 0.2s ease-in-out;
   letter-spacing: 3px;
   color: #28464b;
+  white-space: nowrap;
 }
 
 #to-signup:hover > h2 {
@@ -196,12 +216,20 @@ body {
   letter-spacing: 0px;
 }
 
+#signup-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
 #signup-form > p {
-  margin: 25px auto;
+  /*   margin: 25px auto; */
 }
 
 #signup-form > p > label {
-  font-size: 22px;
+  font-size: 1.5vw;
   color: white;
 }
 
@@ -209,8 +237,8 @@ body {
   background-color: transparent;
   border: none;
   border-bottom: solid 1px white;
-  font-size: 19px;
-  float: right;
+  font-size: 1vw;
+  /*   float: right; */
   padding: 5px;
   height: 35px;
   color: white;
@@ -222,19 +250,20 @@ button {
   color: black;
   padding: 10px;
   border-radius: 30px;
-  font-size: 15px;
+  font-size: 1vw;
   cursor: pointer;
   transition: 0.2s ease-in-out;
   display: flex;
-  margin: 20px auto;
+  margin: 10px auto;
   min-width: 120px;
   justify-content: center;
   letter-spacing: 2px;
+  /*   align-items: center; */
 }
 
 #signup-btn {
   background-color: rgb(246, 186, 0);
-  position: relative;
+  /*   position: relative; */
   /*   top: 15px; */
   border: 1px solid black;
   border-radius: 0px;
@@ -257,8 +286,8 @@ button:hover {
 }
 
 #signup-back-btn {
-  position: absolute;
-  top: 450px;
+  /*   position: absolute; */
+  /*   top: 450px; */
   background-color: black;
   color: white;
   font-size: 13px;
@@ -266,12 +295,21 @@ button:hover {
 }
 
 #signin-back-btn {
-  position: absolute;
+  /*   position: absolute; */
   font-size: 13px;
   text-align: center;
   background-color: black;
   color: white;
-  left: 590px;
+  /*   left: 590px; */
+}
+
+.back-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8vw !important;
 }
 
 .back-btn:hover {
@@ -282,10 +320,11 @@ button:hover {
 }
 
 .arrow-back-span {
-  position: relative;
+  /*   position: relative; */
   transform: scale(2);
-  right: 10px;
-  top: -1px;
+  /*   right: 10px; */
+  /*   top: -1px; */
+  font-size: 1vw;
 }
 
 .error-msg {
@@ -303,6 +342,13 @@ button:hover {
   transform: translate(-50%, -25px);
   font-size: 20px;
   font-weight: bold;
+}
+
+#signin-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 ::-webkit-input-placeholder {

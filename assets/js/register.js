@@ -10,25 +10,25 @@ const signUpBackBtn = document.querySelector("#signup-back-btn");
 toSignIn.addEventListener("click", () => {
   toSignUp.style.display = "none";
   toSignIn.style.display = "none";
-  signInForm.style.display = "block";
+  signInForm.style.display = "flex";
 });
 
 toSignUp.addEventListener("click", () => {
   toSignUp.style.display = "none";
   toSignIn.style.display = "none";
-  signUpForm.style.display = "block";
+  signUpForm.style.display = "flex";
 });
 
 signInBackBtn.addEventListener("click", () => {
   signInForm.style.display = "none";
   signUpForm.style.display = "none";
-  toSignUp.style.display = "block";
-  toSignIn.style.display = "block";
+  toSignUp.style.display = "flex";
+  toSignIn.style.display = "flex";
 });
 
 signUpBackBtn.addEventListener("click", () => {
   signInForm.style.display = "none";
   signUpForm.style.display = "none";
-  toSignUp.style.display = "block";
-  toSignIn.style.display = "block";
+  toSignUp.style.display = "flex";
+  toSignIn.style.display = "flex";
 });
