@@ -30,14 +30,17 @@ const expandAlbumList = () => {
   const buttonTextContent = document.querySelector(
     "#expand-list-btn-container"
   ).firstElementChild;
+  const expandListBtnContainer = document.querySelector(
+    "#expand-list-btn-container"
+  );
 
-  if (!applicationAlbumPage.classList.contains("expanded")) {
+  if (!expandListBtnContainer.classList.contains("expanded")) {
     applicationAlbumPage.classList.add("expanded");
-    buttonTextContent.classList.add("expanded");
-    buttonTextContent.textContent = "Shrink list";
+    expandListBtnContainer.classList.add("expanded");
+    buttonTextContent.textContent = "SHRINK LIST";
   } else {
     applicationAlbumPage.classList.remove("expanded");
-    buttonTextContent.classList.remove("expanded");
-    buttonTextContent.textContent = "Expand list";
+    expandListBtnContainer.classList.remove("expanded");
+    buttonTextContent.textContent = "EXPAND LIST";
   }
 };

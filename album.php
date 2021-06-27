@@ -122,7 +122,7 @@ $artistName = $artist->getName();
                                     ?>
                                 </div>
                                 <div id="expand-list-btn-container" onclick="expandAlbumList()">
-                                    <span>Expand list</span>
+                                    <span>EXPAND LIST</span>
                                 </div>
                             </div>
 
