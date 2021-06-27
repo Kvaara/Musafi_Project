@@ -13,16 +13,21 @@ class Account
 
     public function login($username, $password)
     {
-        $password = sha1($password);
 
-        // $query = mysqli_query($this->con, "SELECT * FROM users WHERE  username='$username' AND password='$password'");
-        $query = mysqli_prepare($this->con, "SELECT * FROM users WHERE  username = ? AND password = ?");
-        mysqli_stmt_bind_param($query, "ss", $username, $password);
+        $query = mysqli_prepare($this->con, "SELECT password FROM users WHERE username = ?");
+        mysqli_stmt_bind_param($query, "s", $username);
         mysqli_stmt_execute($query);
         $result = mysqli_stmt_get_result($query);
 
         if (mysqli_num_rows($result) == 1) {
-            return true;
+            $storedHash = mysqli_fetch_assoc($result)["password"];
+            $isMatch = password_verify($password, $storedHash);
+            if ($isMatch) {
+                return true;
+            } else {
+                array_push($this->error, Constants::$loginFailure);
+                return false;
+            }
         } else {
             array_push($this->error, Constants::$loginFailure);
             return false;
