@@ -213,6 +213,9 @@
 
 #album-tags-container {
   flex: 1 0 45px;
+  flex-wrap: wrap;
+  /*   flex: 1 1 10%; */
+  margin-bottom: 10px;
 }
 
 #album-tags-list-container {
@@ -221,6 +224,7 @@
   flex-direction: row;
   gap: 10px;
   flex: 1;
+  flex-wrap: wrap;
 }
 
 #album-tags-text {
@@ -319,6 +323,31 @@
     font-weight: 700;
     letter-spacing: 0px;
     transition: letter-spacing 200ms ease-in-out;
+  }
+
+  #album-tags-container {
+    flex: 1 1 30%;
+    margin-bottom: 0px;
+  }
+
+  #expand-list-btn-container > span {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0px;
+  }
+
+  .expanded#expand-list-btn-container > span {
+    letter-spacing: 5px;
+  }
+
+  #album-tags-text {
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  #album-tags-list-container > span {
+    font-size: 12px;
   }
 }
 
