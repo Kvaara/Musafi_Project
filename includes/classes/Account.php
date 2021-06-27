@@ -63,7 +63,7 @@ class Account
         // $encryptedPassword = sha1($password);
         $encryptedPassword = password_hash($password, PASSWORD_BCRYPT, ["cost" => 12]);
         $profilePic = "./assets/img/profile-pics/frog_pic.png";
-        $date = date("d-m-Y");
+        $date = date("Y-m-d h:i:s");
 
         $query = mysqli_prepare($this->con, "INSERT INTO users VALUE ('', ?, ?, ?, ?, ?, ?, ?)");
         mysqli_stmt_bind_param($query, "sssssss", $username, $fname, $lname, $email, $encryptedPassword, $date, $profilePic);
