@@ -157,7 +157,7 @@ const doPlayAudio = (audioElement, doPlayAudio) => {
           trackId: audioElement.currentTrack.id,
         },
         () => {
-          console.log("Song's count updated by one");
+          // console.log("Song's count updated by one");
         }
       );
     }
@@ -366,7 +366,6 @@ const setAlbumTracks = (audioElement, albumId) => {
     },
     (result) => {
       const listOfSongsInAlbum = JSON.parse(result);
-      console.log(listOfSongsInAlbum);
       audioElement.tracks = listOfSongsInAlbum;
     }
   );
