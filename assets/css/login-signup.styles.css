@@ -95,7 +95,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   /*   width: 1300px; */
-  background: rgb(0 0 0 / 50%);
+  background: rgb(0 0 0 / 80%);
   border: 2px solid #200122;
   box-shadow: 0px 4px 20px 10px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
@@ -126,7 +126,7 @@ body {
   letter-spacing: 3px;
   /*   font-size: 45px; */
   font-size: 3vw;
-  color: #28464b;
+  color: #2c8c99;
   transition: 0.2s ease-in-out;
   margin: 10px 0 0 0;
   text-align: center;
@@ -138,7 +138,7 @@ body {
   text-align: center;
   font-size: 1.5vw;
   transition: 0.2s ease-in-out;
-  color: #28464b;
+  color: #2c8c99;
   white-space: nowrap;
 }
 
@@ -190,7 +190,7 @@ body {
 #to-signup > h2 {
   letter-spacing: 3px;
   font-size: 3vw;
-  color: #28464b;
+  color: #2c8c99;
   transition: 0.2s ease-in-out;
   margin: 10px 0 0 0;
   text-align: center;
@@ -202,7 +202,7 @@ body {
   font-size: 1.5vw;
   transition: 0.2s ease-in-out;
   letter-spacing: 3px;
-  color: #28464b;
+  color: #2c8c99;
   white-space: nowrap;
 }
 
@@ -216,16 +216,31 @@ body {
   letter-spacing: 0px;
 }
 
+#signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1 1 auto;
+}
+
 #signup-form {
   display: flex;
-  justify-content: center;
+  /*   justify-content: space-between; */
   flex-direction: column;
-  align-items: center;
-  flex: 1;
+  /*   align-items: center; */
+  /*   flex: 1 1 auto; */
+  gap: 1vh;
+  /*   overflow: auto; */
+  justify-content: center;
 }
 
 #signup-form > p {
   /*   margin: 25px auto; */
+  margin: 0;
+  /*   justify-content: space-between; */
+  display: flex;
+  align-items: center;
 }
 
 #signup-form > p > label {
@@ -237,11 +252,12 @@ body {
   background-color: transparent;
   border: none;
   border-bottom: solid 1px white;
-  font-size: 1vw;
-  /*   float: right; */
+  font-size: 1.5vw;
+  /*     float: right; */
   padding: 5px;
-  height: 35px;
+  /*   height: 35px; */
   color: white;
+  /*   height: 5px; */
 }
 
 button {
@@ -250,7 +266,7 @@ button {
   color: black;
   padding: 10px;
   border-radius: 30px;
-  font-size: 1vw;
+  font-size: 16px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
   display: flex;
@@ -267,7 +283,7 @@ button {
   /*   top: 15px; */
   border: 1px solid black;
   border-radius: 0px;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 #signup-btn:hover {
@@ -278,7 +294,7 @@ button {
 }
 
 button:hover {
-  background-color: black;
+  background-color: #a30000;
   color: white;
   border-radius: 0px;
   border: 1px solid black;
@@ -288,17 +304,17 @@ button:hover {
 #signup-back-btn {
   /*   position: absolute; */
   /*   top: 450px; */
-  background-color: black;
+  background-color: #6f0000;
   color: white;
-  font-size: 13px;
+  font-size: 13px !important;
   text-align: center;
 }
 
 #signin-back-btn {
   /*   position: absolute; */
-  font-size: 13px;
+  font-size: 13px !important;
   text-align: center;
-  background-color: black;
+  background-color: #6f0000;
   color: white;
   /*   left: 590px; */
 }
@@ -324,7 +340,7 @@ button:hover {
   transform: scale(2);
   /*   right: 10px; */
   /*   top: -1px; */
-  font-size: 1vw;
+  font-size: 13px;
 }
 
 .error-msg {
@@ -347,8 +363,10 @@ button:hover {
 #signin-container {
   display: flex;
   flex-direction: column;
+  /*   justify-content: flex-end; */
   justify-content: center;
   align-items: center;
+  flex: 1 1 auto;
 }
 
 ::-webkit-input-placeholder {
