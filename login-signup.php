@@ -132,6 +132,8 @@ if (isset($_POST["signup-btn"])) {
 
     toSignUpPost.style.display = 'none';
     toSignInPost.style.display = 'none';
+
+    signUpFormPost.style.display = 'flex';
     </script>";
 } else if (isset($_POST["signin-btn"])) {
     echo "<script> 
@@ -143,6 +145,8 @@ if (isset($_POST["signup-btn"])) {
     
     toSignUpPost.style.display = 'none';
     toSignInPost.style.display = 'none';
+
+    signInFormPost.style.display = 'flex';
     </script>";
 }
 ?>
