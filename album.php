@@ -70,14 +70,17 @@ $artistName = $artist->getName();
                                     <img class="album-info-image" src="./assets/img/album_add_to_queue.svg" alt="To queue" title="Add album to playlist">
                                     <span class="album-info-text">Play all</span>
                                 </div>
+                                <span class="album-info-container-split-line">&#10072;</span>
                                 <div class="album-info-container" id="album-to-playlist-container">
                                     <img class="album-info-image" src="./assets/img/album_add_to_playlist.svg" alt="To playlist" title="Add album to playlist">
                                     <span class="album-info-text">To playlist</span>
                                 </div>
+                                <span class="album-info-container-split-line">&#10072;</span>
                                 <div class="album-info-container" id="album-favorite-container">
                                     <img class="album-info-image" src="./assets/img/album_add_to_favorites.svg" alt="To favorite" title="Add album to playlist">
                                     <span class="album-info-text">Favourite</span>
                                 </div>
+                                <span class="album-info-container-split-line">&#10072;</span>
                                 <div class="album-info-container" id="album-share-container">
                                     <img class="album-info-image" src="./assets/img/album_share.svg" alt="To share" title="Add album to playlist">
                                     <span class="album-info-text">Share</span>
@@ -94,7 +97,7 @@ $artistName = $artist->getName();
 
                                     echo "<div class='album-song'>
                                 <img class='album-song-play' src='./assets/img/album_song_play.svg' alt='Play'>
-                                <img class='album-song-play' src='./assets/img/album_song_pause.svg' alt='Pause' style='display: none;'>
+                                <img id='album-song-pause-button' class='album-song-play' src='./assets/img/album_song_pause.svg' alt='Pause' style='display: none;'>
                                 <div class='album-song-lineup'></div>
                                 <span class='album-song-number'>{$albumSong->getOrderInAlbum()}</span>
                                 <div class='album-song-lineup'></div>
@@ -107,6 +110,7 @@ $artistName = $artist->getName();
                                 }
                                 ?>
                             </div>
+
                             <div id="album-tags-container">
                                 <h2 id="album-tags-text">TAGS:</h2>
                                 <div id="album-tags-list-container">
@@ -117,7 +121,11 @@ $artistName = $artist->getName();
                                     }
                                     ?>
                                 </div>
+                                <div id="expand-list-btn-container" onclick="expandAlbumList()">
+                                    <span>Expand list</span>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </section>

@@ -22,3 +22,22 @@ const addAlbumToQueue = (audioElement, albumId) => {
     }
   );
 };
+
+const expandAlbumList = () => {
+  const applicationAlbumPage = document.querySelector(
+    "#application-page-album"
+  );
+  const buttonTextContent = document.querySelector(
+    "#expand-list-btn-container"
+  ).firstElementChild;
+
+  if (!applicationAlbumPage.classList.contains("expanded")) {
+    applicationAlbumPage.classList.add("expanded");
+    buttonTextContent.classList.add("expanded");
+    buttonTextContent.textContent = "Shrink list";
+  } else {
+    applicationAlbumPage.classList.remove("expanded");
+    buttonTextContent.classList.remove("expanded");
+    buttonTextContent.textContent = "Expand list";
+  }
+};
