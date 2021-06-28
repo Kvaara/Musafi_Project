@@ -131,7 +131,6 @@ const updateCurrentTimeLeft = (audioElement) => {
       "#ffffff15";
 
     // Next song and the background color reset of the last song
-    console.log(audioElement.currentPlaylist.length);
     if (getIndexOfCurrentSong < audioElement.currentPlaylist.length - 1) {
       queueList.lastElementChild.style.backgroundColor = "";
       queueList.children[getIndexOfCurrentSong + 3].style.backgroundColor = "";

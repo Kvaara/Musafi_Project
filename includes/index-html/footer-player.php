@@ -99,7 +99,7 @@ if (isset($_GET['id'])) {
 <div id="footer-player-container">
 
 
-    <div id="current-song-container" onclick="console.log(audioElement.currentPlaylist);">
+    <div id="current-song-container">
         <div id="show-queue-container">
             <span id="songs-in-queue-span">Queue is empty</span>
             <ul id="queue-ul-list">
