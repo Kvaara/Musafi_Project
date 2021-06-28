@@ -186,15 +186,10 @@ $artistName = $artist->getName();
         playButton.addEventListener("click", () => {
             resetButtonStates(albumButtonsArray.pauseButtons, albumButtonsArray.playButtons);
 
-            const isSongTheSame = audioElement.src.includes(albumSongPaths[index].slice(1));
-            if (!isSongTheSame) {
-                audioElement.src = albumSongPaths[index];
-            }
-
-            setNewTrack(audioElement, index + 1, () => {
+            setNewTrack(audioElement, index + 1, <?php echo $albumId ?>, () => {
                 doPlayAudio(audioElement, true);
                 updateFooterPlayerTrackInfo(audioElement);
-
+                buildQueueList(audioElement)
             })
 
             playButton.style.display = "none";

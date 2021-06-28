@@ -33,71 +33,91 @@ if (isset($_GET['id'])) {
         const currentPlaylist = <?php echo $songsJson ?>;
         audioElement = new Audio();
         audioElement.volume = 0.1;
-        audioElement.currentPlaylist = currentPlaylist;
+        // audioElement.currentPlaylist = currentPlaylist;
         // setTrack(currentPlaylist[0], currentPlaylist, false);
         updateVolumeIcon(10, true);
+        updateCurrentTimeLeft(audioElement);
+        updateCurrentTimeAndProgressBar(audioElement);
         userProgressBarControl(audioElement);
         userVolumeBarControl(audioElement);
         onAudioEnd(audioElement);
-        setAlbumTracks(audioElement, <?php echo $_GET["id"] ?>);
+
+        // setAlbumTracks(audioElement, <?php echo $_GET["id"] ?>);
+
+        // TODO do this later
+        // TODO this checks from the cache or memory if the user has had a previous queue if they have then do this
+        // if (audioElement.currentPlaylist.length > 0) {
+
+        // }
     })
 
 
 
-    const setTrack = (trackId, newPlaylist, play) => {
-        audioElement.src = "./assets/songs/Niklas_Puganen/puganen-somesht.mp3";
-        if (play) {
-            audioElement.play();
-        } else {
-            audioElement.pause();
-        }
-    }
+    // const setTrack = (trackId, newPlaylist, play) => {
+    //     audioElement.src = "./assets/songs/Niklas_Puganen/puganen-somesht.mp3";
+    //     if (play) {
+    //         audioElement.play();
+    //     } else {
+    //         audioElement.pause();
+    //     }
+    // }
 
-    $.post("./includes/handlers/ajax/getSongJson.php", {
-        trackId: 1,
-        albumId: <?php echo $_GET["id"] ?>
-    }, (result) => {
-        const trackData = JSON.parse(result);
+    // $.post("./includes/handlers/ajax/getSongJson.php", {
+    //     trackId: 1,
+    //     albumId: <?php echo $_GET["id"] ?>
+    // }, (result) => {
+    //     const trackData = JSON.parse(result);
 
 
-        audioElement.src = trackData.path;
-        audioElement.currentTrack = trackData;
+    //     audioElement.src = trackData.path;
+    //     audioElement.currentTrack = trackData;
 
-        updateCurrentTimeLeft(audioElement);
-        updateCurrentTimeAndProgressBar(audioElement);
+    //     updateCurrentTimeLeft(audioElement);
+    //     updateCurrentTimeAndProgressBar(audioElement);
 
-        document.querySelector("#current-song-name").textContent = trackData.title;
+    //     document.querySelector("#current-song-name").textContent = trackData.title;
 
-        $.post("./includes/handlers/ajax/getArtistJson.php", {
-            artistId: trackData.artist
-        }, (result) => {
-            const artistName = JSON.parse(result);
+    //     $.post("./includes/handlers/ajax/getArtistJson.php", {
+    //         artistId: trackData.artist
+    //     }, (result) => {
+    //         const artistName = JSON.parse(result);
 
-            document.querySelector("#current-song-author").textContent = `by ${artistName.name}`;
-        })
+    //         document.querySelector("#current-song-author").textContent = `by ${artistName.name}`;
+    //     })
 
-        $.post("./includes/handlers/ajax/getAlbumJson.php", {
-            albumId: trackData.album
-        }, (result) => {
-            const albumData = JSON.parse(result);
+    //     $.post("./includes/handlers/ajax/getAlbumJson.php", {
+    //         albumId: trackData.album
+    //     }, (result) => {
+    //         const albumData = JSON.parse(result);
 
-            document.querySelector("#current-song-img").src = albumData.artworkPath;
-        })
+    //         document.querySelector("#current-song-img").src = albumData.artworkPath;
+    //     })
 
-    })
+    // })
 </script>
 
 <div id="footer-player-container">
 
-    <div id="current-song-container">
 
+    <div id="current-song-container" onclick="console.log(audioElement.currentPlaylist);">
+        <div id="show-queue-container">
+            <span id="songs-in-queue-span">Queue is empty</span>
+            <ul id="queue-ul-list">
+                <li style="margin: auto;">It's quiet in here . . . &#9738;</li>
+                <li id="queue-list-column-names" style="display: none;">
+                    <span>&#8470;</span>
+                    <span>Title</span>
+                    <span>Duration</span>
+                </li>
+            </ul>
+        </div>
         <span id="current-song-link">
-            <img id="current-song-img" alt="Link to song">
+            <img src="./assets/img/queue_is_empty.svg" id="current-song-img" alt="Link to song">
         </span>
         <div id="current-song-info">
-            <span id="current-song-name"></span>
+            <span id="current-song-name">NOTHING IN QUEUE</span>
             <br>
-            <span id="current-song-author"></span>
+            <span id="current-song-author">select a song from an album</span>
         </div>
 
     </div>
@@ -105,7 +125,7 @@ if (isset($_GET['id'])) {
     <div id="player-control-container">
         <div id="player-controls">
             <img id="player-shuffle" src="./assets/img/player_shuffle.svg" onclick="isShuffleOn(audioElement, true, this)" alt="shuffle" title="Shuffle playlist">
-            <img id="player-left" src="./assets/img/player_left2.svg" onclick="previousOrNextSong(audioElement, false)" alt="previous" title="Previous song">
+            <img id="player-left" src="./assets/img/player_left2.svg" onclick="previousOrNextSong(audioElement, false)" alt="previous" title="Last song">
             <img id="player-play" class="player-play-pause" src="./assets/img/player_play2.svg" onclick="doPlayAudio(audioElement, true)" alt="Play" title="Play">
             <img id="player-pause" class="player-play-pause" src="./assets/img/player_pause.svg" onclick="doPlayAudio(audioElement, false)" alt="Pause" title="Pause" style="display: none;">
             <img id="player-right" src="./assets/img/player_right2.svg" onclick="previousOrNextSong(audioElement, true)" alt="next" title="Next song">

@@ -304,12 +304,10 @@
   #header-album-title {
     font-size: 30px;
     letter-spacing: 1px;
-    text-align: center;
   }
 
   #header-album-artist {
     font-size: 14px;
-    color: #2c4c4e;
   }
 
   .album-song-play {
@@ -369,5 +367,16 @@
   .album-info-image {
     width: 20px;
     transition: width 200ms ease-in-out;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #header-album-title {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  #header-album-artist {
+    font-size: 12px;
   }
 }

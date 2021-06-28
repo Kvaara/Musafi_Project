@@ -17,8 +17,10 @@ const addAlbumToQueue = (audioElement, albumId) => {
       audioElement.src = albumPlaylist[0].path;
       audioElement.currentTrack = albumPlaylist[0];
       //   updateButtonStates(albumPlaylist[0], true);
+      buildQueueList(audioElement);
       resetButtonStates();
       doPlayAudio(audioElement, true);
+      updateFooterPlayerTrackInfo(audioElement);
     }
   );
 };
