@@ -61,19 +61,34 @@ $artistName = $artist->getName();
 
                 <section id="application-page-section">
 
+                    <div id="add-to-new-modal-container" class="add-to-playlist-modal-container">
+                        <label for="playlist-name">Playlist name</label>
+                        <input type="text" name="playlist-name" id="playlist-name" placeholder="e.g Album 1337" maxlength="30">
+                        <button type="button">CREATE</button>
+                    </div>
+
                     <div id="application-page-album">
                         <img id="album-artwork" src="<?php echo $album->getArtworkPath(); ?>" alt="Album image">
                         <div id="album-songs-wrapper">
                             <div id="album-info">
                                 <span id="album-songs-count"> <?php echo $album->getNumberOfSongs(); ?></span>
-                                <div class="album-info-container" id="album-play-all-container" onclick="addAlbumToQueue(audioElement, <?php echo $albumId ?>)">
+                                <div class="album-info-container" id="album-play-all-container">
                                     <img class="album-info-image" src="./assets/img/album_add_to_queue.svg" alt="To queue" title="Add album to playlist">
                                     <span class="album-info-text">Play all</span>
                                 </div>
                                 <span class="album-info-container-split-line">&#10072;</span>
                                 <div class="album-info-container" id="album-to-playlist-container">
-                                    <img class="album-info-image" src="./assets/img/album_add_to_playlist.svg" alt="To playlist" title="Add album to playlist">
-                                    <span class="album-info-text">To playlist</span>
+                                    <div id="add-to-playlist-button-container">
+                                        <img class="album-info-image" src="./assets/img/album_add_to_playlist.svg" alt="To playlist" title="Add album to playlist">
+                                        <span class="album-info-text">To playlist</span>
+                                    </div>
+                                    <div id="add-to-playlist-input-container">
+                                        <button id="to-new-playlist-btn" class="to-new-or-existing-btn" type="button">NEW</button>
+                                        &#8212;
+                                        <button id="to-old-playlist-btn" class="to-new-or-existing-btn" type="button">OLD</button>
+                                        <!-- <input type="text" maxlength="30" placeholder="Playlist name">
+                                        <img src="./assets/img/album_add_to_playlist_submit.svg" alt="Submit" title="Create playlist with album"> -->
+                                    </div>
                                 </div>
                                 <span class="album-info-container-split-line">&#10072;</span>
                                 <div class="album-info-container" id="album-favorite-container">
@@ -145,6 +160,44 @@ $artistName = $artist->getName();
 <script src="./assets/js/index.script.js"></script>
 <script src="./assets/js/album-play-buttons.script.js"></script>
 <script src="./assets/js/footer-player.script.js"></script>
+
+<script>
+    const albumPlayAllContainer = document.querySelector("#album-play-all-container");
+    albumPlayAllContainer.addEventListener("click", () => {
+        addAlbumToQueue(audioElement, <?php echo $albumId ?>)
+    })
+</script>
+
+<script>
+    const songsToNewPlaylistModal = document.querySelector("#add-to-new-modal-container");
+
+    const toPlaylistButtonContainer = document.querySelector(
+        "#add-to-playlist-button-container"
+    );
+
+    const addToNewOrOldPlaylistContainer = document.querySelector("#add-to-playlist-input-container");
+
+    toPlaylistButtonContainer.addEventListener("click", (event) => {
+        addToNewOrOldPlaylistContainer.classList.add("visible");
+    });
+
+    document.addEventListener("mouseup", (event) => {
+        if (!event.target.closest("#add-to-playlist-input-container")) {
+            addToNewOrOldPlaylistContainer.classList.remove("visible");
+        }
+        if (!event.target.closest("#add-to-new-modal-container")) {
+            songsToNewPlaylistModal.classList.remove("visible");
+        }
+    })
+
+    const songsToNewPlaylistBtn = document.querySelector("#to-new-playlist-btn");
+
+    songsToNewPlaylistBtn.addEventListener("click", () => {
+        songsToNewPlaylistModal.classList.add("visible");
+        songsToNewPlaylistModal.children[1].focus();
+        addToNewOrOldPlaylistContainer.classList.remove("visible");
+    })
+</script>
 
 <script>
     const currentSongImage = document.querySelector("#current-song-img");
