@@ -61,11 +61,122 @@ $artistName = $artist->getName();
 
                 <section id="application-page-section">
 
-                    <div id="add-to-new-modal-container" class="add-to-playlist-modal-container">
+
+                    <div class="add-to-existing-playlist-container">
+                        <div id="add-to-existing-header">
+                            <h1 class="add-to-playlist-header" id="first-step-title">
+                                What songs do you want?
+                            </h1>
+                            <h1 class="add-to-playlist-header" id="second-step-title">
+                                To a new or existing playlist?
+                            </h1>
+                            <h1 class="add-to-playlist-header" id="to-new-playlist-title">
+                                What's a good name?
+                            </h1>
+                            <h1 class="add-to-playlist-header" id="to-existing-playlist-title">
+                                Where do you want to add?
+                            </h1>
+                        </div>
+
+                        <div id="button-options-container">
+                            <button id="add-to-new-btn" class="button-options-btn">
+                                NEW
+                            </button>
+
+                            <button id="choose-songs-btn" class="button-options-btn">
+                                Select songs
+                            </button>
+                            <div id="choose-songs-list-container">
+                                <ul id="choose-songs-list">
+                                    <label><input type="checkbox">Breaking Nuts</label>
+                                    <label><input type="checkbox">Holy Fire</label>
+                                    <label><input type="checkbox">Kakarot</label>
+                                    <label><input type="checkbox">FireSmooth</label>
+                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
+                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
+                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
+                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
+                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
+                                </ul>
+                                <div id="choose-songs-buttons">
+                                    <button id="choose-songs-add">
+                                        ADD
+                                    </button>
+                                    <button id="choose-songs-add-all">
+                                        CHECK ALL
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button id="add-to-existing-btn" class="button-options-btn">
+                                EXISTING
+                            </button>
+                        </div>
+
+                        <div id="to-existing-playlists-container">
+                            <ul id="existing-playlists-list">
+                                <li>
+                                    Album 1
+                                    <div class="existing-playlists-info-popup">
+                                        <span>The Order</span>
+                                        <span>By Niklas Puganen</span>
+                                        <span>18 songs</span>
+                                        <button class="existing-playlists-info-popup-btn" type="button">ADD</button>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    The order
+                                    <div class="existing-playlists-info-popup">
+                                        <span>The Order</span>
+                                        <span>By Niklas Puganen</span>
+                                        <span>18 songs</span>
+                                        <button class="existing-playlists-info-popup-btn" type="button">ADD</button>
+                                    </div>
+                                </li>
+
+
+                                <li>Justified At
+                                    <div class="existing-playlists-info-popup">
+                                        <span>The Order</span>
+                                        <span>By Niklas Puganen</span>
+                                        <span>18 songs</span>
+                                        <button class="existing-playlists-info-popup-btn" type="button">ADD</button>
+                                    </div>
+                                </li>
+
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                                <li>Bloom Sight</li>
+                            </ul>
+
+                        </div>
+
+                        <div id="to-new-playlist-container">
+                            <label for="playlist-name">Playlist name</label>
+                            <input type="text" name="playlist-name" id="to-new-playlist-input" placeholder="e.g Album 1337" maxlength="30">
+                            <button id="add-to-new-playlist-btn" type="button">CREATE</button>
+                        </div>
+                    </div>
+
+                    <!-- <div id="add-to-new-modal-container" class="add-to-playlist-modal-container">
                         <label for="playlist-name">Playlist name</label>
                         <input type="text" name="playlist-name" id="playlist-name" placeholder="e.g Album 1337" maxlength="30">
                         <button type="button">CREATE</button>
-                    </div>
+                    </div> -->
 
                     <div id="application-page-album">
                         <img id="album-artwork" src="<?php echo $album->getArtworkPath(); ?>" alt="Album image">
@@ -160,6 +271,7 @@ $artistName = $artist->getName();
 <script src="./assets/js/index.script.js"></script>
 <script src="./assets/js/album-play-buttons.script.js"></script>
 <script src="./assets/js/footer-player.script.js"></script>
+<script src="./assets/js/add-album-to-playlist.script.js"></script>
 
 <script>
     const albumPlayAllContainer = document.querySelector("#album-play-all-container");
@@ -169,33 +281,35 @@ $artistName = $artist->getName();
 </script>
 
 <script>
-    const songsToNewPlaylistModal = document.querySelector("#add-to-new-modal-container");
+    // const songsToNewPlaylistModal = document.querySelector("#add-to-new-modal-container");
+    const albumAddToPlaylistModal = document.querySelector(".add-to-existing-playlist-container");
 
     const toPlaylistButtonContainer = document.querySelector(
         "#add-to-playlist-button-container"
     );
-
+    albumAddToPlaylistModal
     const addToNewOrOldPlaylistContainer = document.querySelector("#add-to-playlist-input-container");
 
     toPlaylistButtonContainer.addEventListener("click", (event) => {
-        addToNewOrOldPlaylistContainer.classList.add("visible");
+        // addToNewOrOldPlaylistContainer.classList.add("visible");
+        albumAddToPlaylistModal.style.display = "flex";
     });
 
     document.addEventListener("mouseup", (event) => {
-        if (!event.target.closest("#add-to-playlist-input-container")) {
-            addToNewOrOldPlaylistContainer.classList.remove("visible");
-        }
-        if (!event.target.closest("#add-to-new-modal-container")) {
-            songsToNewPlaylistModal.classList.remove("visible");
+        // if (!event.target.closest(".add-to-existing-playlist-container")) {
+        //     addToNewOrOldPlaylistContainer.classList.remove("visible");
+        // }
+        if (!event.target.closest(".add-to-existing-playlist-container")) {
+            albumAddToPlaylistModal.style.display = "none";
         }
     })
 
     const songsToNewPlaylistBtn = document.querySelector("#to-new-playlist-btn");
 
     songsToNewPlaylistBtn.addEventListener("click", () => {
-        songsToNewPlaylistModal.classList.add("visible");
-        songsToNewPlaylistModal.children[1].focus();
-        addToNewOrOldPlaylistContainer.classList.remove("visible");
+        // songsToNewPlaylistModal.classList.add("visible");
+        // songsToNewPlaylistModal.children[1].focus();
+        // addToNewOrOldPlaylistContainer.classList.remove("visible");
     })
 </script>
 
