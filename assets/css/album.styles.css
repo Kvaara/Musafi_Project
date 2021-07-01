@@ -284,21 +284,6 @@
   border: 1px solid white;
 }
 
-/* #add-to-playlist-input-container > input {
-  border: none;
-    border-bottom: 1px solid white;
-  background-color: transparent;
-  width: 100%;
-  letter-spacing: 1px;
-  color: white;
-} */
-
-/* #add-to-playlist-input-container > img {
-  filter: invert(10%) sepia(52%) saturate(7016%) hue-rotate(356deg)
-    brightness(99%) contrast(115%);
-  cursor: pointer;
-} */
-
 #album-songs-count {
   color: white;
   font-size: 30px;
@@ -424,27 +409,37 @@
   bottom: 0;
   top: 0;
   margin: auto;
-  width: 60%;
-  height: 60%;
+  width: 23%;
+  height: 30%;
   border-radius: 10px;
   z-index: 99;
+  /* justify-content: space-between; */
 }
 
 #add-to-existing-header {
   display: flex;
-  /* justify-content: center; */
+  flex-direction: column;
+  justify-content: center;
   /* text-align: center; */
   border-bottom: 1px solid #2c4c4e;
-  flex: 0 1 10%;
+  /* flex: 0 1 15%; */
   color: white;
+  align-items: center;
+  /* height: 7%; */
+  /* min-height: 20%; */
+  margin: 10px 0;
+  padding-bottom: 5px;
 }
 
 .add-to-playlist-header {
   margin: 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
+  /* margin-top: 10px; */
+  /* margin-bottom: 10px; */
+  /* margin-left: 10px; */
   padding: 0;
+  /* text-align: center; */
+  margin: auto;
+  /* font-size: 20px; */
 }
 
 #second-step-title {
@@ -472,12 +467,16 @@
 
 #button-options-container {
   display: flex;
-  justify-content: center;
-  /* align-items: center; */
+  align-items: center;
   /* gap: 30px; */
-  gap: 5%;
-  /* flex: 0 1 auto; */
-  margin-top: 15px;
+  /* gap: 5%; */
+  /* flex: 0 1 10%; */
+  /* flex: 1 1; */
+  /* margin-top: 15px; */
+  /* margin: -1px 0; */
+  margin-top: 11px;
+  /* flex: 1 1 16px; */
+  justify-content: space-evenly;
 }
 
 .button-options-btn {

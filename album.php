@@ -37,6 +37,7 @@ $artistName = $artist->getName();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/index.styles.css">
     <link rel="stylesheet" href="./assets/css/album.styles.css">
+    <link rel="stylesheet" href="./assets/css/album-addtoplaylist.modal.css">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./assets/js/album-page.script.js"></script>
@@ -61,8 +62,9 @@ $artistName = $artist->getName();
 
                 <section id="application-page-section">
 
+                    <!-- BELOW IS THE SECTION FOR THE MODAL CONTAINERS -->
 
-                    <div class="add-to-existing-playlist-container">
+                    <!-- <div class="add-to-existing-playlist-container">
                         <div id="add-to-existing-header">
                             <h1 class="add-to-playlist-header" id="first-step-title">
                                 What songs do you want?
@@ -170,13 +172,72 @@ $artistName = $artist->getName();
                             <input type="text" name="playlist-name" id="to-new-playlist-input" placeholder="e.g Album 1337" maxlength="30">
                             <button id="add-to-new-playlist-btn" type="button">CREATE</button>
                         </div>
+                    </div> -->
+
+
+                    <div id="album-to-playlist-modal-container">
+
+                        <div id="album-to-playlist-action-container">
+                            <button>Select songs</button>
+                            <button style="display: none;"></button>
+                            <button style="display: none;"></button>
+                        </div>
+
+                        <div id="album-to-playlist-content">
+                            <!-- <label><input type="checkbox" id="add-all-checkbox">ADD ALL</label> -->
+                            <ul id="album-select-songs-list">
+                                <label><input type="checkbox">Doom</label>
+                                <label><input type="checkbox">Slayer</label>
+                                <label><input type="checkbox">Pager</label>
+                                <label><input type="checkbox">Naked Eye</label>
+                                <label><input type="checkbox">Eyeshit</label>
+                                <label><input type="checkbox">Eyeshit</label>
+                                <label><input type="checkbox">Eyeshit</label>
+                            </ul>
+
+                            <div id="album-select-all-container">
+                                <input id="album-select-all-input" type="checkbox">
+                                <label for="album-select-all-input">Select all</label>
+                            </div>
+
+                            <div id="album-new-or-existing">
+                                <button id="album-to-new">New</button>
+                                <button id="album-to-existing">Existing</button>
+                            </div>
+
+                            <div id="album-to-new-content">
+                                <span id="album-to-new-error-msg"></span>
+                                <input id="album-to-new-input" type="text" placeholder="e.g Album 1337">
+                            </div>
+
+                            <div id="album-to-new-success-content">
+                                <span id="album-to-new-result">Album created and songs added!</span>
+                                <a id="album-just-created-name">To albumname&#10142;</a>
+                            </div>
+
+                            <div id="album-to-existing-content">
+
+                            </div>
+
+                        </div>
+
+                        <div class="progress-bar-container" id="album-to-playlist-progressbar-container">
+
+                            <div class="progress-bar progress-bar-0" id="album-to-playlist-progressbar">
+
+                            </div>
+
+                        </div>
+
+                        <div id="next-or-previous-container">
+                            <button id="previous-button">Previous</button>
+                            <button id="next-button">Next</button>
+                        </div>
+
                     </div>
 
-                    <!-- <div id="add-to-new-modal-container" class="add-to-playlist-modal-container">
-                        <label for="playlist-name">Playlist name</label>
-                        <input type="text" name="playlist-name" id="playlist-name" placeholder="e.g Album 1337" maxlength="30">
-                        <button type="button">CREATE</button>
-                    </div> -->
+
+                    <!-- END OF MODAL CONTAINER SECTION -->
 
                     <div id="application-page-album">
                         <img id="album-artwork" src="<?php echo $album->getArtworkPath(); ?>" alt="Album image">
@@ -282,13 +343,14 @@ $artistName = $artist->getName();
 
 <script>
     // const songsToNewPlaylistModal = document.querySelector("#add-to-new-modal-container");
-    const albumAddToPlaylistModal = document.querySelector(".add-to-existing-playlist-container");
+    // const albumAddToPlaylistModal = document.querySelector(".add-to-existing-playlist-container");
+    const albumAddToPlaylistModal = document.querySelector("#album-to-playlist-modal-container");
 
     const toPlaylistButtonContainer = document.querySelector(
         "#add-to-playlist-button-container"
     );
-    albumAddToPlaylistModal
-    const addToNewOrOldPlaylistContainer = document.querySelector("#add-to-playlist-input-container");
+    // albumAddToPlaylistModal
+    // const addToNewOrOldPlaylistContainer = document.querySelector("#add-to-playlist-input-container");
 
     toPlaylistButtonContainer.addEventListener("click", (event) => {
         // addToNewOrOldPlaylistContainer.classList.add("visible");
@@ -299,17 +361,19 @@ $artistName = $artist->getName();
         // if (!event.target.closest(".add-to-existing-playlist-container")) {
         //     addToNewOrOldPlaylistContainer.classList.remove("visible");
         // }
-        if (!event.target.closest(".add-to-existing-playlist-container")) {
+        if (!event.target.closest("#album-to-playlist-modal-container")) {
             albumAddToPlaylistModal.style.display = "none";
         }
     })
 
     const songsToNewPlaylistBtn = document.querySelector("#to-new-playlist-btn");
 
+
     songsToNewPlaylistBtn.addEventListener("click", () => {
         // songsToNewPlaylistModal.classList.add("visible");
         // songsToNewPlaylistModal.children[1].focus();
         // addToNewOrOldPlaylistContainer.classList.remove("visible");
+        // albumAddToPlaylistModal.style.display = "flex";
     })
 </script>
 
