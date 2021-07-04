@@ -10,10 +10,10 @@ if (isset($_POST["albumName"])) {
 
 $accepted_file_types = ["audio/mpeg", "audio/wav"];
 
-// if (!(in_array($_FILES["file"]["type"], $accepted_file_types))) {
-//     echo "false";
-//     return;
-// }
+if (!(in_array($_FILES["file"]["type"], $accepted_file_types))) {
+    echo "false";
+    return;
+}
 
 // if (!file_exists("uploads")) {
 //     mkdir("../../../assets/songs/uploads/", 0777);
