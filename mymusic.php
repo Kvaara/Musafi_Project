@@ -89,7 +89,7 @@
             $.post("./includes/handlers/ajax/addAlbumToDb.php", {
                 albumName
             }, (result) => {
-                var data = JSON.parse(result);
+                // var data = JSON.parse(result);
             })
 
             $.ajax({
