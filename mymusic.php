@@ -91,18 +91,16 @@
             // }, (result) => {
             //     var data = JSON.parse(result);
             // })
-            setTimeout(() => {
-                $.ajax({
-                    type: "POST",
-                    url: "./includes/handlers/ajax/addAlbumToDb.php",
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function(response) {
-                        alert(response);
-                    }
-                })
-            }, 7500);
+            $.ajax({
+                type: "POST",
+                url: "./includes/handlers/ajax/addAlbumToDb.php",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function(response) {
+                    alert(response);
+                }
+            })
         } else if (albumName.length === 0) {
             alert("You need to specify a name!");
         } else {
