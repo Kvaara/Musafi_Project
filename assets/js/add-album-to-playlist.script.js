@@ -1,181 +1,29 @@
-// const addToNewOrExistingPlaylistModal = document.querySelector(
-//   ".add-to-existing-playlist-container"
-// );
-
-// const newButton = document.querySelector("#add-to-new-btn");
-// const existingButton = document.querySelector("#add-to-existing-btn");
-// const chooseSongs = document.querySelector("#choose-songs-btn");
-
-// const newPlaylistContainer = document.querySelector(
-//   "#to-new-playlist-container"
-// );
-// const existingPlaylistContainer = document.querySelector(
-//   "#to-existing-playlists-container"
-// );
-
-// const firstStepTitle = document.querySelector("#first-step-title");
-// const secondStepTitle = document.querySelector("#second-step-title");
-// const toNewPlaylistTitle = document.querySelector("#to-new-playlist-title");
-// const toExistingPlaylistTitle = document.querySelector(
-//   "#to-existing-playlist-title"
-// );
-
-// const chooseSongsListContainer = document.querySelector(
-//   "#choose-songs-list-container"
-// );
-
-// const toNewPlaylistInput = document.querySelector("#to-new-playlist-input");
-// const toNewPlaylistBtn = document.querySelector("#add-to-new-playlist-btn");
-
-// newButton.addEventListener("click", () => {
-//   newButton.classList.add("active");
-
-//   existingButton.classList.remove("active");
-//   chooseSongs.classList.remove("active");
-
-//   existingPlaylistContainer.style.display = "none";
-//   newPlaylistContainer.style.display = "flex";
-
-//   secondStepTitle.style.display = "none";
-
-//   toExistingPlaylistTitle.style.fontSize = "0px";
-//   toExistingPlaylistTitle.style.opacity = "0";
-//   toNewPlaylistTitle.style.fontSize = "32px";
-//   toNewPlaylistTitle.style.opacity = "1";
-
-//   toNewPlaylistInput.focus();
-// });
-
-// existingButton.addEventListener("click", () => {
-//   existingButton.classList.add("active");
-
-//   newButton.classList.remove("active");
-//   chooseSongs.classList.remove("active");
-
-//   newPlaylistContainer.style.display = "none";
-//   existingPlaylistContainer.style.display = "flex";
-
-//   secondStepTitle.style.display = "none";
-
-//   toNewPlaylistTitle.style.fontSize = "0px";
-//   toNewPlaylistTitle.style.opacity = "0";
-//   toExistingPlaylistTitle.style.fontSize = "32px";
-//   toExistingPlaylistTitle.style.opacity = "1";
-// });
-
-// Choose songs hover functionality (shows the choose songs list)
-// chooseSongs.addEventListener("mouseenter", () => {
-//   chooseSongsListContainer.style.visibility = "visible";
-//   chooseSongsListContainer.style.opacity = "1";
-//   chooseSongs.classList.add("active");
-// });
-
-// chooseSongs.addEventListener("mouseleave", () => {
-//   chooseSongsListContainer.style.visibility = "hidden";
-//   chooseSongsListContainer.style.opacity = "0";
-//   chooseSongs.classList.remove("active");
-// });
-
-// chooseSongsListContainer.addEventListener("mouseenter", () => {
-//   chooseSongsListContainer.style.visibility = "visible";
-//   chooseSongsListContainer.style.opacity = "1";
-//   chooseSongs.classList.add("active");
-// });
-
-// chooseSongsListContainer.addEventListener("mouseleave", () => {
-//   chooseSongsListContainer.style.visibility = "hidden";
-//   chooseSongsListContainer.style.opacity = "0";
-//   chooseSongs.classList.remove("active");
-// });
-
-// Check and uncheck all button functionality
-// const chooseSongsAddBtn = document.querySelector("#choose-songs-add");
-// const chooseSongsAddAllBtn = document.querySelector("#choose-songs-add-all");
-// const listOfSongs = document.querySelector("#choose-songs-list");
-// const songs = [...listOfSongs.children];
-// let didUserChooseSongs = false;
-
-// chooseSongsAddBtn.addEventListener("click", () => {
-//   songs.forEach((label, index) => {
-//     const isChecked = label.firstChild.checked;
-//     if (isChecked) {
-//       didUserChooseSongs = true;
-//       newButton.style.opacity = "1";
-//       newButton.style.visibility = "visible";
-
-//       existingButton.style.opacity = "1";
-//       existingButton.style.visibility = "visible";
-
-//       firstStepTitle.style.display = "none";
-//       secondStepTitle.style.visibility = "visible";
-//       secondStepTitle.style.opacity = "1";
-//       secondStepTitle.style.fontSize = "32px";
-//     }
-//   });
-// });
-
-// let isCurrentlyChecked = false;
-// chooseSongsAddAllBtn.addEventListener("click", () => {
-//   if (!isCurrentlyChecked) {
-//     songs.forEach((label, index) => {
-//       label.firstChild.checked = true;
-//       isCurrentlyChecked = true;
-//       chooseSongsAddAllBtn.textContent = "UNCHECK ALL";
-//     });
-//   } else {
-//     songs.forEach((label, index) => {
-//       label.firstChild.checked = false;
-//       isCurrentlyChecked = false;
-//       chooseSongsAddAllBtn.textContent = "CHECK ALL";
-//     });
-//   }
-// });
-
-// toNewPlaylistBtn.addEventListener("click", () => {
-//   alert(`${toNewPlaylistInput.value} has been created!`);
-//   addToNewOrExistingPlaylistModal.style.display = "none";
-// });
-
-// const existingPlaylistsList = document.querySelector(
-//   "#existing-playlists-list"
-// );
-// const existingPlaylistsArray = [...existingPlaylistsList.children];
-
-// existingPlaylistsArray.forEach((playlist) => {
-//   const playlistInfoPopupBtn = playlist.querySelector(
-//     ".existing-playlists-info-popup-btn"
-//   );
-//   if (playlistInfoPopupBtn) {
-//     playlistInfoPopupBtn.addEventListener("click", () => {
-//       console.log("clicked");
-//     });
-//   }
-// });
-
 /* const addAllCheckbox = document.querySelector("#add-all-checkbox"); */
-const selectSongsList = document.querySelector("#album-select-songs-list");
-const albumNewOrExisting = document.querySelector("#album-new-or-existing");
-const songs = [...selectSongsList.children];
+var selectSongsList = document.querySelector("#album-select-songs-list");
+var albumNewOrExisting = document.querySelector("#album-new-or-existing");
+var songs = [...selectSongsList.children];
 
-const previousBtn = document.querySelector("#previous-button");
-const nextBtn = document.querySelector("#next-button");
+var headerTitle = document.querySelector(
+  "#album-to-playlist-header"
+).firstElementChild;
 
-const selectAllInput = document.querySelector("#album-select-all-input");
+var previousBtn = document.querySelector("#previous-button");
+var nextBtn = document.querySelector("#next-button");
 
-const albumToNewBtn = document.querySelector("#album-to-new");
-const albumToExistingBtn = document.querySelector("#album-to-existing");
+var selectAllInput = document.querySelector("#album-select-all-input");
 
-const albumToNewErrorMsg = document.querySelector("#album-to-new-error-msg");
-const newPlaylistNameInput = document.querySelector("#album-to-new-input");
-const albumToNewSuccessContent = document.querySelector(
-  "#album-to-new-success-content"
-);
+var albumToNewBtn = document.querySelector("#album-to-new");
+var albumToExistingBtn = document.querySelector("#album-to-existing");
 
-const progressBar = document.querySelector("#album-to-playlist-progressbar");
+var albumToNewErrorMsg = document.querySelector("#album-to-new-error-msg");
+var newPlaylistNameInput = document.querySelector("#album-to-new-input");
+var albumSuccessContent = document.querySelectorAll(".album-success-content");
 
-let userSelectedSongs = [];
+var progressBar = document.querySelector("#album-to-playlist-progressbar");
 
-const checkIfUserSelectedSongs = () => {
+var userSelectedSongs = [];
+
+var checkIfUserSelectedSongs = () => {
   if (userSelectedSongs.length > 0) {
     nextBtn.classList.add("enabled");
   } else {
@@ -185,12 +33,12 @@ const checkIfUserSelectedSongs = () => {
 
 songs.forEach((song, index) => {
   song.addEventListener("mouseup", (event) => {
-    const input = event.target.querySelector("input");
+    var input = event.target.querySelector("input");
 
     if (!input.checked) {
       userSelectedSongs.push(song.textContent);
     } else {
-      const indexOfSong = userSelectedSongs.indexOf(song.textContent);
+      var indexOfSong = userSelectedSongs.indexOf(song.textContent);
       userSelectedSongs.splice(indexOfSong, 1);
     }
     checkIfUserSelectedSongs();
@@ -206,7 +54,7 @@ selectAllInput.addEventListener("click", (event) => {
       selectAllInput.parentNode.classList.add("active");
     } else {
       song.querySelector("input").checked = false;
-      const indexOfSong = userSelectedSongs.indexOf(song.textContent);
+      var indexOfSong = userSelectedSongs.indexOf(song.textContent);
       userSelectedSongs.splice(indexOfSong, 1);
       selectAllInput.parentNode.classList.remove("active");
     }
@@ -216,50 +64,68 @@ selectAllInput.addEventListener("click", (event) => {
   console.log(userSelectedSongs);
 });
 
-const albumToNewContentPage = document.querySelector("#album-to-new-content");
-const albumToExistingContentPage = document.querySelector(
+var albumToNewContentPage = document.querySelector("#album-to-new-content");
+var albumToExistingContentPage = document.querySelector(
   "#album-to-existing-content"
 );
 
-let noNewplaylistError = false;
+var noNewplaylistError = false;
+
 nextBtn.addEventListener("click", () => {
   if (
     userSelectedSongs.length > 0 &&
     progressBar.classList.contains("progress-bar-0")
   ) {
+    progressBar.classList.remove("progress-bar-0");
     progressBar.classList.add("progress-bar-33");
 
     selectSongsList.style.display = "none";
     previousBtn.classList.add("enabled");
     albumNewOrExisting.classList.add("show");
     selectAllInput.parentNode.style.display = "none";
-  } else {
-    return alert("YOU MUST SELECT SONGS!");
-  }
-
-  if (progressBar.classList.contains("progress-bar-33")) {
+    headerTitle.textContent = "To new or existing?";
+  } else if (progressBar.classList.contains("progress-bar-33")) {
     if (albumToNewBtn.classList.contains("selected")) {
+      progressBar.classList.remove("progress-bar-33");
       progressBar.classList.add("progress-bar-66");
       nextBtn.textContent = "Create";
       nextBtn.classList.add("createPlaylistBtn");
 
       albumNewOrExisting.classList.remove("show");
       albumToNewContentPage.classList.add("show");
-
-      if (noNewplaylistError) {
-        console.log("no errors");
-        progressBar.classList.add("progress-bar-100");
-        albumToNewContentPage.classList.remove("show");
-        albumToNewSuccessContent.classList.add("show");
-        nextBtn.classList.remove("enabled");
-        previousBtn.classList.remove("enabled");
-      }
+      headerTitle.textContent = "Name your playlist";
     } else if (albumToExistingBtn.classList.contains("selected")) {
+      progressBar.classList.remove("progress-bar-33");
       progressBar.classList.add("progress-bar-66");
       nextBtn.textContent = "Add";
 
       albumNewOrExisting.classList.remove("show");
       albumToExistingContentPage.classList.add("show");
+      headerTitle.textContent = "Select your playlist";
+    }
+  } else if (progressBar.classList.contains("progress-bar-66")) {
+    if (
+      noNewplaylistError &&
+      albumToNewContentPage.classList.contains("show")
+    ) {
+      console.log("no errors");
+      progressBar.classList.add("progress-bar-100");
+      albumToNewContentPage.classList.remove("show");
+      albumSuccessContent[0].classList.add("show");
+      nextBtn.classList.remove("enabled");
+      previousBtn.classList.remove("enabled");
+    } else if (albumToExistingContentPage.classList.contains("show")) {
+      if (selectedAlbumIndex !== undefined) {
+        progressBar.classList.add("progress-bar-100");
+        albumToExistingContentPage.classList.remove("show");
+        albumSuccessContent[1].classList.add("show");
+        nextBtn.classList.remove("enabled");
+        previousBtn.classList.remove("enabled");
+        progressBar.classList.remove("progress-bar-100");
+        progressBar.classList.add("progress-bar-0");
+      } else {
+        alert("you must select a playlist!");
+      }
     }
   } else {
     return alert(
@@ -269,11 +135,30 @@ nextBtn.addEventListener("click", () => {
 });
 
 previousBtn.addEventListener("click", () => {
-  albumNewOrExisting.classList.remove("show");
-  selectSongsList.style.display = "grid";
-  previousBtn.classList.remove("enabled");
-  progressBar.classList.remove("progress-bar-33");
-  selectAllInput.parentNode.style.display = "flex";
+  if (progressBar.classList.contains("progress-bar-33")) {
+    progressBar.classList.remove("progress-bar-33");
+    progressBar.classList.add("progress-bar-0");
+    albumNewOrExisting.classList.remove("show");
+    selectSongsList.style.display = "grid";
+    selectAllInput.parentNode.style.display = "flex";
+    previousBtn.classList.remove("enabled");
+    headerTitle.textContent = "Select songs";
+  } else if (progressBar.classList.contains("progress-bar-66")) {
+    progressBar.classList.remove("progress-bar-66");
+    progressBar.classList.add("progress-bar-33");
+    headerTitle.textContent = "To new or existing?";
+    if (albumToNewBtn.classList.contains("selected")) {
+      albumToNewContentPage.classList.remove("show");
+      albumNewOrExisting.classList.add("show");
+    } else {
+      albumToExistingContentPage.classList.remove("show");
+      albumNewOrExisting.classList.add("show");
+    }
+    nextBtn.textContent = "Next";
+  } else if (progressBar.classList.contains("progress-bar-100")) {
+    progressBar.classList.remove("progress-bar-100");
+    progressBar.classList.add("progress-bar-66");
+  }
 });
 
 albumToNewBtn.addEventListener("click", (event) => {
@@ -295,12 +180,12 @@ albumToExistingBtn.addEventListener("click", (event) => {
 });
 
 newPlaylistNameInput.addEventListener("keyup", (event) => {
-  const playlistName = event.target.value;
+  var playlistName = event.target.value;
   //Pattern checks all alphanumeric and spaces
-  const regexPattern = /^([a-zA-Z0-9]+\s)*[a-zA-Z0-9]+$/;
-  const isValid = regexPattern.test(playlistName);
-  const spaceAmount = playlistName.split(" ").length - 1;
-  let noErrors = true;
+  var regexPattern = /^([a-zA-Z0-9]+\s)*[a-zA-Z0-9]+$/;
+  var isValid = regexPattern.test(playlistName);
+  var spaceAmount = playlistName.split(" ").length - 1;
+  var noErrors = true;
   if (playlistName.length < 3) {
     nextBtn.classList.remove("enabled");
     albumToNewErrorMsg.classList.remove("noErrors");
@@ -346,4 +231,26 @@ newPlaylistNameInput.addEventListener("keyup", (event) => {
     albumToNewErrorMsg.textContent = "Name is perfect!";
     noNewplaylistError = noErrors;
   }
+});
+
+var albumElements = [...albumToExistingContentPage.children];
+
+var selectedAlbumIndex;
+albumElements.forEach((album, index) => {
+  album.addEventListener("click", (event) => {
+    if (selectedAlbumIndex === undefined) {
+      selectedAlbumIndex = index;
+      album.style.backgroundColor = "#6F0000";
+      album.style.border = "2px solid #6F0000";
+      album.style.letterSpacing = "0px";
+    } else {
+      albumElements[selectedAlbumIndex].style.backgroundColor = "";
+      albumElements[selectedAlbumIndex].style.border = "";
+      albumElements[selectedAlbumIndex].style.letterSpacing = "";
+      selectedAlbumIndex = index;
+      album.style.backgroundColor = "#6F0000";
+      album.style.border = "2px solid #6F0000";
+      album.style.letterSpacing = "0px";
+    }
+  });
 });

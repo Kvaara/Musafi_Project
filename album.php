@@ -1,20 +1,32 @@
 <?php
-include("includes/config.php");
 
-include("includes/classes/Artist.php");
-include("includes/classes/Album.php");
-include("includes/classes/Song.php");
-
-//session_destroy(); SIGN OUT
-
-if (isset($_SESSION["userSignedIn"])) {
-    $userSignedIn = $_SESSION["userSignedIn"];
-} else {
-    header("Location: login-signup.php");
-}
+include("./includes/includedNavbar.php");
 
 if (isset($_GET['id'])) {
     $albumId = $_GET['id'];
+
+    $songsQuery = mysqli_query($con, "SELECT * FROM songs WHERE album = {$_GET['id']}");
+
+    $songsArray = [];
+
+    $songsQuery2 = mysqli_query($con, "SELECT * FROM songs where album = {$albumId} ORDER BY albumOrder ASC");
+
+    while ($row = mysqli_fetch_assoc($songsQuery)) {
+        array_push($songsArray, $row["path"]);
+    }
+
+    $songsTitleArray = [];
+    $songsPathArray = [];
+
+    while ($row = mysqli_fetch_assoc($songsQuery2)) {
+        array_push($songsTitleArray, $row["title"]);
+        array_push($songsPathArray, $row["path"]);
+    }
+
+    $songsJson = json_encode($songsArray);
+
+    $songsTitleArrayJson = json_encode($songsTitleArray);
+    $songsPathArrayJson = json_encode($songsPathArray);
 } else {
     header("Location: index.php");
 }
@@ -28,261 +40,182 @@ $artistName = $artist->getName();
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<header id="application-page-header">
+    <h1 id="header-album-title">
+        <?php echo $albumTitle ?>
+        <span id="header-album-artist"> by <?php echo $artistName ?>, 2021</span>
+    </h1>
+</header>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/index.styles.css">
-    <link rel="stylesheet" href="./assets/css/album.styles.css">
-    <link rel="stylesheet" href="./assets/css/album-addtoplaylist.modal.css">
-    <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="./assets/js/album-page.script.js"></script>
-</head>
+<section id="application-page-section">
 
-<body>
+    <!-- BELOW IS THE SECTION FOR THE MODAL CONTAINERS -->
+    <div id="album-to-playlist-modal-container">
 
-    <div id="flex-wrapper">
+        <div id="album-to-playlist-header">
+            <h1>
+                Select songs
+            </h1>
+        </div>
 
-        <div id="application-section-container">
+        <div id="album-to-playlist-content">
+            <ul id="album-select-songs-list">
+                <label><input type="checkbox">Doom</label>
+                <label><input type="checkbox">Slayer</label>
+                <label><input type="checkbox">Pager</label>
+                <label><input type="checkbox">Naked Eye</label>
+                <label><input type="checkbox">Eyeshit</label>
+                <label><input type="checkbox">Eyeshit</label>
+                <label><input type="checkbox">Eyeshit</label>
+            </ul>
 
-            <?php include("./includes/index-html/nav-bar.php") ?>
+            <div id="album-select-all-container">
+                <input id="album-select-all-input" type="checkbox">
+                <label for="album-select-all-input">Select all</label>
+            </div>
 
+            <div id="album-new-or-existing">
+                <button id="album-to-new">New</button>
+                <button id="album-to-existing">Existing</button>
+            </div>
 
-            <div id="application-page">
-                <header id="application-page-header">
-                    <h1 id="header-album-title">
-                        <?php echo $albumTitle ?>
-                        <span id="header-album-artist"> by <?php echo $artistName ?>, 2021</span>
-                    </h1>
-                </header>
+            <div id="album-to-new-content">
+                <span id="album-to-new-error-msg"></span>
+                <input id="album-to-new-input" type="text" placeholder="e.g Album 1337">
+            </div>
 
-                <section id="application-page-section">
+            <div class="album-success-content">
+                <span id="album-to-new-result">Album created and songs added!</span>
+                <a id="album-just-created-name" class="span-link">To albumname&#10142;</a>
+            </div>
 
-                    <!-- BELOW IS THE SECTION FOR THE MODAL CONTAINERS -->
-
-                    <!-- <div class="add-to-existing-playlist-container">
-                        <div id="add-to-existing-header">
-                            <h1 class="add-to-playlist-header" id="first-step-title">
-                                What songs do you want?
-                            </h1>
-                            <h1 class="add-to-playlist-header" id="second-step-title">
-                                To a new or existing playlist?
-                            </h1>
-                            <h1 class="add-to-playlist-header" id="to-new-playlist-title">
-                                What's a good name?
-                            </h1>
-                            <h1 class="add-to-playlist-header" id="to-existing-playlist-title">
-                                Where do you want to add?
-                            </h1>
-                        </div>
-
-                        <div id="button-options-container">
-                            <button id="add-to-new-btn" class="button-options-btn">
-                                NEW
-                            </button>
-
-                            <button id="choose-songs-btn" class="button-options-btn">
-                                Select songs
-                            </button>
-                            <div id="choose-songs-list-container">
-                                <ul id="choose-songs-list">
-                                    <label><input type="checkbox">Breaking Nuts</label>
-                                    <label><input type="checkbox">Holy Fire</label>
-                                    <label><input type="checkbox">Kakarot</label>
-                                    <label><input type="checkbox">FireSmooth</label>
-                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
-                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
-                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
-                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
-                                    <label><input type="checkbox">Playing Kinderellaasdasdsadasdasdasd</label>
-                                </ul>
-                                <div id="choose-songs-buttons">
-                                    <button id="choose-songs-add">
-                                        ADD
-                                    </button>
-                                    <button id="choose-songs-add-all">
-                                        CHECK ALL
-                                    </button>
-                                </div>
-                            </div>
-
-                            <button id="add-to-existing-btn" class="button-options-btn">
-                                EXISTING
-                            </button>
-                        </div>
-
-                        <div id="to-existing-playlists-container">
-                            <ul id="existing-playlists-list">
-                                <li>
-                                    Album 1
-                                    <div class="existing-playlists-info-popup">
-                                        <span>The Order</span>
-                                        <span>By Niklas Puganen</span>
-                                        <span>18 songs</span>
-                                        <button class="existing-playlists-info-popup-btn" type="button">ADD</button>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    The order
-                                    <div class="existing-playlists-info-popup">
-                                        <span>The Order</span>
-                                        <span>By Niklas Puganen</span>
-                                        <span>18 songs</span>
-                                        <button class="existing-playlists-info-popup-btn" type="button">ADD</button>
-                                    </div>
-                                </li>
-
-
-                                <li>Justified At
-                                    <div class="existing-playlists-info-popup">
-                                        <span>The Order</span>
-                                        <span>By Niklas Puganen</span>
-                                        <span>18 songs</span>
-                                        <button class="existing-playlists-info-popup-btn" type="button">ADD</button>
-                                    </div>
-                                </li>
-
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                                <li>Bloom Sight</li>
-                            </ul>
-
-                        </div>
-
-                        <div id="to-new-playlist-container">
-                            <label for="playlist-name">Playlist name</label>
-                            <input type="text" name="playlist-name" id="to-new-playlist-input" placeholder="e.g Album 1337" maxlength="30">
-                            <button id="add-to-new-playlist-btn" type="button">CREATE</button>
-                        </div>
-                    </div> -->
-
-
-                    <div id="album-to-playlist-modal-container">
-
-                        <div id="album-to-playlist-action-container">
-                            <button>Select songs</button>
-                            <button style="display: none;"></button>
-                            <button style="display: none;"></button>
-                        </div>
-
-                        <div id="album-to-playlist-content">
-                            <!-- <label><input type="checkbox" id="add-all-checkbox">ADD ALL</label> -->
-                            <ul id="album-select-songs-list">
-                                <label><input type="checkbox">Doom</label>
-                                <label><input type="checkbox">Slayer</label>
-                                <label><input type="checkbox">Pager</label>
-                                <label><input type="checkbox">Naked Eye</label>
-                                <label><input type="checkbox">Eyeshit</label>
-                                <label><input type="checkbox">Eyeshit</label>
-                                <label><input type="checkbox">Eyeshit</label>
-                            </ul>
-
-                            <div id="album-select-all-container">
-                                <input id="album-select-all-input" type="checkbox">
-                                <label for="album-select-all-input">Select all</label>
-                            </div>
-
-                            <div id="album-new-or-existing">
-                                <button id="album-to-new">New</button>
-                                <button id="album-to-existing">Existing</button>
-                            </div>
-
-                            <div id="album-to-new-content">
-                                <span id="album-to-new-error-msg"></span>
-                                <input id="album-to-new-input" type="text" placeholder="e.g Album 1337">
-                            </div>
-
-                            <div id="album-to-new-success-content">
-                                <span id="album-to-new-result">Album created and songs added!</span>
-                                <a id="album-just-created-name">To albumname&#10142;</a>
-                            </div>
-
-                            <div id="album-to-existing-content">
-
-                            </div>
-
-                        </div>
-
-                        <div class="progress-bar-container" id="album-to-playlist-progressbar-container">
-
-                            <div class="progress-bar progress-bar-0" id="album-to-playlist-progressbar">
-
-                            </div>
-
-                        </div>
-
-                        <div id="next-or-previous-container">
-                            <button id="previous-button">Previous</button>
-                            <button id="next-button">Next</button>
-                        </div>
-
+            <div id="album-to-existing-content">
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 13</span>
                     </div>
+                    <span class="album-existing-name"> The Album 13</span>
+                </div>
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 5</span>
+                    </div>
+                    <span class="album-existing-name">The order of songs</span>
+                </div>
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 20</span>
+                    </div>
+                    <span class="album-existing-name">Scamaz</span>
+                </div>
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 3</span>
+                    </div>
+                    <span class="album-existing-name">Tester</span>
+                </div>
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 9</span>
+                    </div>
+                    <span class="album-existing-name">Tester</span>
+                </div>
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 2</span>
+                    </div>
+                    <span class="album-existing-name">Tester</span>
+                </div>
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 200</span>
+                    </div>
+                    <span class="album-existing-name">Tester</span>
+                </div>
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 100</span>
+                    </div>
+                    <span class="album-existing-name">Tester</span>
+                </div>
+                <div>
+                    <div class="album-existing-hover-info">
+                        <span>Songs 1000</span>
+                    </div>
+                    <span class="album-existing-name">Tester</span>
+                </div>
 
 
-                    <!-- END OF MODAL CONTAINER SECTION -->
+            </div>
 
-                    <div id="application-page-album">
-                        <img id="album-artwork" src="<?php echo $album->getArtworkPath(); ?>" alt="Album image">
-                        <div id="album-songs-wrapper">
-                            <div id="album-info">
-                                <span id="album-songs-count"> <?php echo $album->getNumberOfSongs(); ?></span>
-                                <div class="album-info-container" id="album-play-all-container">
-                                    <img class="album-info-image" src="./assets/img/album_add_to_queue.svg" alt="To queue" title="Add album to playlist">
-                                    <span class="album-info-text">Play all</span>
-                                </div>
-                                <span class="album-info-container-split-line">&#10072;</span>
-                                <div class="album-info-container" id="album-to-playlist-container">
-                                    <div id="add-to-playlist-button-container">
-                                        <img class="album-info-image" src="./assets/img/album_add_to_playlist.svg" alt="To playlist" title="Add album to playlist">
-                                        <span class="album-info-text">To playlist</span>
-                                    </div>
-                                    <div id="add-to-playlist-input-container">
-                                        <button id="to-new-playlist-btn" class="to-new-or-existing-btn" type="button">NEW</button>
-                                        &#8212;
-                                        <button id="to-old-playlist-btn" class="to-new-or-existing-btn" type="button">OLD</button>
-                                        <!-- <input type="text" maxlength="30" placeholder="Playlist name">
-                                        <img src="./assets/img/album_add_to_playlist_submit.svg" alt="Submit" title="Create playlist with album"> -->
-                                    </div>
-                                </div>
-                                <span class="album-info-container-split-line">&#10072;</span>
-                                <div class="album-info-container" id="album-favorite-container">
-                                    <img class="album-info-image" src="./assets/img/album_add_to_favorites.svg" alt="To favorite" title="Add album to playlist">
-                                    <span class="album-info-text">Favourite</span>
-                                </div>
-                                <span class="album-info-container-split-line">&#10072;</span>
-                                <div class="album-info-container" id="album-share-container">
-                                    <img class="album-info-image" src="./assets/img/album_share.svg" alt="To share" title="Add album to playlist">
-                                    <span class="album-info-text">Share</span>
-                                </div>
-                            </div>
-                            <div id="album-songs-list-container">
+            <div class="album-success-content">
+                <span id="album-to-new-result">Songs added to the playlist!</span>
+                <a id="album-just-created-name" class="span-link">To albumname&#10142;</a>
+            </div>
 
-                                <?php
-                                $songIdArray = $album->getSongIds();
+        </div>
 
-                                foreach ($songIdArray as $songId) {
+        <div class="progress-bar-container" id="album-to-playlist-progressbar-container">
 
-                                    $albumSong = new Song($con, $songId);
+            <div class="progress-bar progress-bar-0" id="album-to-playlist-progressbar">
 
-                                    echo "<div class='album-song'>
+            </div>
+
+        </div>
+
+        <div id="next-or-previous-container">
+            <button id="previous-button">Previous</button>
+            <button id="next-button">Next</button>
+        </div>
+
+    </div>
+    <!-- END OF MODAL CONTAINER SECTION -->
+
+
+
+
+    <div id="application-page-album">
+        <img id="album-artwork" src="<?php echo $album->getArtworkPath(); ?>" alt="Album image">
+        <div id="album-songs-wrapper">
+            <div id="album-info">
+                <span id="album-songs-count"> <?php echo $album->getNumberOfSongs(); ?></span>
+                <div class="album-info-container" id="album-play-all-container">
+                    <img class="album-info-image" src="./assets/img/album_add_to_queue.svg" alt="To queue" title="Add album to playlist">
+                    <span class="album-info-text">Play all</span>
+                </div>
+                <span class="album-info-container-split-line">&#10072;</span>
+                <div class="album-info-container" id="album-to-playlist-container">
+                    <div id="add-to-playlist-button-container">
+                        <img class="album-info-image" src="./assets/img/album_add_to_playlist.svg" alt="To playlist" title="Add album to playlist">
+                        <span class="album-info-text">To playlist</span>
+                    </div>
+                    <div id="add-to-playlist-input-container">
+                        <button id="to-new-playlist-btn" class="to-new-or-existing-btn" type="button">NEW</button>
+                        &#8212;
+                        <button id="to-old-playlist-btn" class="to-new-or-existing-btn" type="button">OLD</button>
+                    </div>
+                </div>
+                <span class="album-info-container-split-line">&#10072;</span>
+                <div class="album-info-container" id="album-favorite-container">
+                    <img class="album-info-image" src="./assets/img/album_add_to_favorites.svg" alt="To favorite" title="Add album to playlist">
+                    <span class="album-info-text">Favourite</span>
+                </div>
+                <span class="album-info-container-split-line">&#10072;</span>
+                <div class="album-info-container" id="album-share-container">
+                    <img class="album-info-image" src="./assets/img/album_share.svg" alt="To share" title="Add album to playlist">
+                    <span class="album-info-text">Share</span>
+                </div>
+            </div>
+            <div id="album-songs-list-container">
+
+                <?php
+                $songIdArray = $album->getSongIds();
+
+                foreach ($songIdArray as $songId) {
+
+                    $albumSong = new Song($con, $songId);
+
+                    echo "<div class='album-song'>
                                 <img class='album-song-play' src='./assets/img/album_song_play.svg' alt='Play'>
                                 <img id='album-song-pause-button' class='album-song-play' src='./assets/img/album_song_pause.svg' alt='Pause' style='display: none;'>
                                 <div class='album-song-lineup'></div>
@@ -294,101 +227,67 @@ $artistName = $artist->getName();
                                 </div>
                             </div>
                             ";
-                                }
-                                ?>
-                            </div>
+                }
+                ?>
+            </div>
 
-                            <div id="album-tags-container">
-                                <h2 id="album-tags-text">TAGS:</h2>
-                                <div id="album-tags-list-container">
-                                    <?php
-                                    $albumGenres = $album->getAlbumGenres();
-                                    foreach ($albumGenres as $genre) {
-                                        echo "<span>{$genre}</span>";
-                                    }
-                                    ?>
-                                </div>
-                                <div id="expand-list-btn-container" onclick="expandAlbumList()">
-                                    <span>EXPAND LIST</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
+            <div id="album-tags-container">
+                <h2 id="album-tags-text">TAGS:</h2>
+                <div id="album-tags-list-container">
+                    <?php
+                    $albumGenres = $album->getAlbumGenres();
+                    foreach ($albumGenres as $genre) {
+                        echo "<span>{$genre}</span>";
+                    }
+                    ?>
+                </div>
+                <div id="expand-list-btn-container" onclick="expandAlbumList()">
+                    <span>EXPAND LIST</span>
+                </div>
             </div>
 
         </div>
-
-
-        <?php include("./includes/index-html/footer-player.php") ?>
-
-
     </div>
+</section>
 
-
-</body>
-
-<script src="./assets/js/index.script.js"></script>
 <script src="./assets/js/album-play-buttons.script.js"></script>
-<script src="./assets/js/footer-player.script.js"></script>
 <script src="./assets/js/add-album-to-playlist.script.js"></script>
 
 <script>
-    const albumPlayAllContainer = document.querySelector("#album-play-all-container");
+    var albumPlayAllContainer = document.querySelector("#album-play-all-container");
     albumPlayAllContainer.addEventListener("click", () => {
         addAlbumToQueue(audioElement, <?php echo $albumId ?>)
     })
-</script>
 
-<script>
-    // const songsToNewPlaylistModal = document.querySelector("#add-to-new-modal-container");
-    // const albumAddToPlaylistModal = document.querySelector(".add-to-existing-playlist-container");
-    const albumAddToPlaylistModal = document.querySelector("#album-to-playlist-modal-container");
+    var albumAddToPlaylistModal = document.querySelector("#album-to-playlist-modal-container");
 
-    const toPlaylistButtonContainer = document.querySelector(
+    var toPlaylistButtonContainer = document.querySelector(
         "#add-to-playlist-button-container"
     );
-    // albumAddToPlaylistModal
-    // const addToNewOrOldPlaylistContainer = document.querySelector("#add-to-playlist-input-container");
 
     toPlaylistButtonContainer.addEventListener("click", (event) => {
-        // addToNewOrOldPlaylistContainer.classList.add("visible");
         albumAddToPlaylistModal.style.display = "flex";
     });
 
     document.addEventListener("mouseup", (event) => {
-        // if (!event.target.closest(".add-to-existing-playlist-container")) {
-        //     addToNewOrOldPlaylistContainer.classList.remove("visible");
-        // }
         if (!event.target.closest("#album-to-playlist-modal-container")) {
             albumAddToPlaylistModal.style.display = "none";
         }
     })
 
-    const songsToNewPlaylistBtn = document.querySelector("#to-new-playlist-btn");
+    var songsToNewPlaylistBtn = document.querySelector("#to-new-playlist-btn");
+
+    var currentSongImage = document.querySelector("#current-song-img");
+    var currentSongInfo = document.querySelector("#current-song-info");
+    var playerControlContainer = document.querySelector("#player-control-container");
 
 
-    songsToNewPlaylistBtn.addEventListener("click", () => {
-        // songsToNewPlaylistModal.classList.add("visible");
-        // songsToNewPlaylistModal.children[1].focus();
-        // addToNewOrOldPlaylistContainer.classList.remove("visible");
-        // albumAddToPlaylistModal.style.display = "flex";
-    })
-</script>
+    var albumButtonsArray = makeAlbumPlayPauseButtonsArray();
 
-<script>
-    const currentSongImage = document.querySelector("#current-song-img");
-    const currentSongInfo = document.querySelector("#current-song-info");
-    const playerControlContainer = document.querySelector("#player-control-container");
+    var albumSongTitles = <?php echo $songsTitleArrayJson ?>;
+    var albumSongPaths = <?php echo $songsPathArrayJson ?>;
 
-
-    const albumButtonsArray = makeAlbumPlayPauseButtonsArray();
-
-    const albumSongTitles = <?php echo $songsTitleArrayJson ?>;
-    const albumSongPaths = <?php echo $songsPathArrayJson ?>;
-
-    const resetButtonStates = (pauseButtonsArray = albumButtonsArray.pauseButtons, playButtonsArray = albumButtonsArray.playButtons) => {
+    var resetButtonStates = (pauseButtonsArray = albumButtonsArray.pauseButtons, playButtonsArray = albumButtonsArray.playButtons) => {
         pauseButtonsArray.forEach((pauseButton) => {
             pauseButton.style.display = "none";
         })
@@ -398,7 +297,7 @@ $artistName = $artist->getName();
         })
     }
 
-    const updateButtonStates = (currentTrack, isPlayPressed) => {
+    var updateButtonStates = (currentTrack, isPlayPressed) => {
         const trackAlbumId = currentTrack.album;
         const orderInAlbum = currentTrack.albumOrder;
         const pageAlbumId = <?php echo $_GET["id"] ?>;
@@ -436,6 +335,19 @@ $artistName = $artist->getName();
             albumButtonsArray.playButtons[index].style.display = "inline";
         })
     })
+
+    // Checks at the start if a song is playing and updates the buttons
+    // Useful because the application is a SPA and the button states reset automatically when the content page loads again.
+    try {
+        if (!audioElement.paused && audioElement.currentTrack.album === <?php echo $albumId ?>) {
+            albumButtonsArray.playButtons[audioElement.currentTrack.albumOrder - 1].style.display = "none";
+            albumButtonsArray.pauseButtons[audioElement.currentTrack.albumOrder - 1].style.display = "inline";
+            albumButtonsArray.pauseButtons[audioElement.currentTrack.albumOrder - 1].style.visibility = "visible";
+        }
+    } catch (e) {
+        // Catches an error if the audioElement is not defined 
+        // (Which it isn't at the start if user navigates to an album page by typing in the url and pressing enter)
+    }
 </script>
 
-</html>
+<?php include("./includes/includedFooterPlayer.php") ?>

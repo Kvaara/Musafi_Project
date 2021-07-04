@@ -1,25 +1,25 @@
-const albumSongsListContainer = document.querySelector(
+var albumSongsListContainer = document.querySelector(
   "#album-songs-list-container"
 );
 
-const getSongElements = () => {
-  const listOfSongElements = albumSongsListContainer.children;
-  const listOfSongs = [...listOfSongElements];
+var getSongElements = () => {
+  var listOfSongElements = albumSongsListContainer.children;
+  var listOfSongs = [...listOfSongElements];
   return listOfSongs;
 };
 
-const makeAlbumPlayPauseButtonsArray = () => {
-  const listOfSongs = getSongElements();
+var makeAlbumPlayPauseButtonsArray = () => {
+  var listOfSongs = getSongElements();
 
-  const playButtonsArray = [];
-  const pauseButtonsArray = [];
+  var playButtonsArray = [];
+  var pauseButtonsArray = [];
 
   listOfSongs.forEach((songElement) => {
     playButtonsArray.push(songElement.children[0]);
     pauseButtonsArray.push(songElement.children[1]);
   });
 
-  const albumButtonsArray = {
+  var albumButtonsArray = {
     playButtons: [...playButtonsArray],
     pauseButtons: [...pauseButtonsArray],
   };

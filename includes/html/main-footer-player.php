@@ -1,36 +1,9 @@
-<?php
-if (isset($_GET['id'])) {
-    $songsQuery = mysqli_query($con, "SELECT * FROM songs WHERE album = {$_GET['id']}");
-
-    $songsArray = [];
-
-    $songsQuery2 = mysqli_query($con, "SELECT * FROM songs where album = {$albumId} ORDER BY albumOrder ASC");
-
-    while ($row = mysqli_fetch_assoc($songsQuery)) {
-        array_push($songsArray, $row["path"]);
-    }
-
-    $songsTitleArray = [];
-    $songsPathArray = [];
-
-    while ($row = mysqli_fetch_assoc($songsQuery2)) {
-        array_push($songsTitleArray, $row["title"]);
-        array_push($songsPathArray, $row["path"]);
-    }
-
-    $songsJson = json_encode($songsArray);
-
-    $songsTitleArrayJson = json_encode($songsTitleArray);
-    $songsPathArrayJson = json_encode($songsPathArray);
-}
-
-?>
+<script src="./assets/js/footer-player.script.js"></script>
 
 <script>
     let audioElement;
 
     document.addEventListener("DOMContentLoaded", () => {
-        const currentPlaylist = <?php echo $songsJson ?>;
         audioElement = new Audio();
         audioElement.volume = 0.1;
         // audioElement.currentPlaylist = currentPlaylist;
@@ -42,7 +15,6 @@ if (isset($_GET['id'])) {
         userVolumeBarControl(audioElement);
         onAudioEnd(audioElement);
 
-        // setAlbumTracks(audioElement, <?php echo $_GET["id"] ?>);
 
         // TODO do this later
         // TODO this checks from the cache or memory if the user has had a previous queue if they have then do this
@@ -64,7 +36,7 @@ if (isset($_GET['id'])) {
 
     // $.post("./includes/handlers/ajax/getSongJson.php", {
     //     trackId: 1,
-    //     albumId: <?php echo $_GET["id"] ?>
+    //     albumId:
     // }, (result) => {
     //     const trackData = JSON.parse(result);
 
@@ -96,6 +68,11 @@ if (isset($_GET['id'])) {
     // })
 </script>
 
+</div>
+
+</div>
+<!-- </div> -->
+
 <div id="footer-player-container">
 
 
@@ -124,11 +101,11 @@ if (isset($_GET['id'])) {
 
     <div id="player-control-container">
         <div id="player-controls">
-            <img id="player-shuffle" src="./assets/img/player_shuffle.svg" onclick="isShuffleOn(audioElement, true, this)" alt="shuffle" title="Shuffle playlist">
-            <img id="player-left" src="./assets/img/player_left2.svg" onclick="previousOrNextSong(audioElement, false)" alt="previous" title="Last song">
-            <img id="player-play" class="player-play-pause" src="./assets/img/player_play2.svg" onclick="doPlayAudio(audioElement, true)" alt="Play" title="Play">
+            <img id="player-shuffle" src="./assets/img/player_shuffle.svg" onclick="audioElement.currentTrack ? (audioElement, true, this) : '' " alt="shuffle" title="Shuffle playlist">
+            <img id="player-left" src="./assets/img/player_left2.svg" onclick="audioElement.currentTrack ? previousOrNextSong(audioElement, false) : '' " alt="previous" title="Last song">
+            <img id="player-play" class="player-play-pause" src="./assets/img/player_play2.svg" onclick="audioElement.currentTrack ? doPlayAudio(audioElement, true) : '' " alt="Play" title="Play">
             <img id="player-pause" class="player-play-pause" src="./assets/img/player_pause.svg" onclick="doPlayAudio(audioElement, false)" alt="Pause" title="Pause" style="display: none;">
-            <img id="player-right" src="./assets/img/player_right2.svg" onclick="previousOrNextSong(audioElement, true)" alt="next" title="Next song">
+            <img id="player-right" src="./assets/img/player_right2.svg" onclick="audioElement.currentTrack ? previousOrNextSong(audioElement, true) : '' " alt="next" title="Next song">
             <img id="player-repeat" src="./assets/img/player_repeat.svg" onclick="isRepeatOn(audioElement, true, this)" alt="repeat" title="Repeat on/off">
         </div>
 
@@ -161,3 +138,12 @@ if (isset($_GET['id'])) {
     </div>
 
 </div>
+
+</div>
+
+
+</body>
+
+<script src="./assets/js/index.script.js"></script>
+
+</html>
