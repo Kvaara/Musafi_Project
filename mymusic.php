@@ -82,9 +82,9 @@
             })
 
 
-            for (var [key, value] of formData.entries()) {
-                console.log(key, value)
-            }
+            // for (var [key, value] of formData.entries()) {
+            //     console.log(key, value)
+            // }
 
             // $.post("./includes/handlers/ajax/addAlbumToDb.php", {
             //     albumName

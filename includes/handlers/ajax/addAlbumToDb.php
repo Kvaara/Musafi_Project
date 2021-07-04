@@ -7,12 +7,12 @@ include("../../../mp3file.class.php");
 // }
 
 
-$accepted_file_types = ["audio/mpeg", "audio/wav"];
+// $accepted_file_types = ["audio/mpeg", "audio/wav"];
 
-if (!(in_array($_FILES["file"]["type"], $accepted_file_types))) {
-    echo "false";
-    return;
-}
+// if (!(in_array($_FILES["file"]["type"], $accepted_file_types))) {
+//     echo "false";
+//     return;
+// }
 
 
 $fileName = $_FILES["file"]["name"];
