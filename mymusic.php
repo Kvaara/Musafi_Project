@@ -97,6 +97,7 @@
                 contentType: false,
                 processData: false,
                 data: formData,
+                mimeType: "multipart/form-data",
                 success: function(response) {
                     alert(response);
                 }
