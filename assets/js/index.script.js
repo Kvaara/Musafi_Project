@@ -65,9 +65,14 @@ navBarBrowse.addEventListener("click", () => {
   });
 });
 
-// navBarMymusic.addEventListener("click", () => {
-//   openPage("mymusic.php");
-// });
+navBarMymusic.addEventListener("click", () => {
+  openPage("mymusic.php");
+  resetAllNavbarItemStyles(() => {
+    navBarMymusic.firstElementChild.style.filter =
+      "invert(99%) sepia(78%) saturate(2%) hue-rotate(7deg) brightness(112%) contrast(100%)";
+    navBarMymusic.style.boxShadow = "inset 5px 0px 0px #6f0000";
+  });
+});
 
 // navBarSettings.addEventListener("click", () => {
 //   openPage("settings.php");

@@ -25,6 +25,7 @@ if (isset($_SESSION["userSignedIn"])) {
     <link rel="stylesheet" href="./assets/css/album.styles.css">
     <link rel="stylesheet" href="./assets/css/album-addtoplaylist.modal.css">
     <link rel="stylesheet" href="./assets/css/browse.styles.css">
+    <link rel="stylesheet" href="./assets/css/mymusic.styles.css">
     <title>Home - Musafi</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./assets/js/album-page.script.js"></script>
