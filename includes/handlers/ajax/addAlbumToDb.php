@@ -39,7 +39,7 @@ $maxValue = mysqli_query($con, "SELECT MAX(albumOrder) FROM songs WHERE artist =
 $row = mysqli_fetch_assoc($maxValue);
 $maxValue2 = intval($row["MAX(albumOrder)"]) + 1;
 
-$query = mysqli_query($con, "INSERT INTO songs (title, artist, album, genre, duration, path, albumOrder, plays) VALUES ('{$fileName}', 2, 1, 7, '{$formattedDuration}', '{$path}', {$maxValue2}, 0)");
+$query = mysqli_query($con, "INSERT INTO songs (title, artist, album, genre, duration, path, albumOrder, plays) VALUES ('{$fileName}', 1, 1, 7, '{$formattedDuration}', '{$path}', {$maxValue2}, 0)");
 
 // INSERT INTO songs (title, artist, album, genre, duration, path, plays) VALUES ({$fileName}, 2, 1, 7, {$formattedDuration}, {$path}, 0);
 
