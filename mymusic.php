@@ -86,22 +86,23 @@
                 console.log(key, value)
             }
 
-            $.post("./includes/handlers/ajax/addAlbumToDb.php", {
-                albumName
-            }, (result) => {
-                // var data = JSON.parse(result);
-            })
-
-            $.ajax({
-                type: "POST",
-                url: "./includes/handlers/ajax/addAlbumToDb.php",
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function(response) {
-                    alert(response);
-                }
-            })
+            // $.post("./includes/handlers/ajax/addAlbumToDb.php", {
+            //     albumName
+            // }, (result) => {
+            //     var data = JSON.parse(result);
+            // })
+            setTimeout(() => {
+                $.ajax({
+                    type: "POST",
+                    url: "./includes/handlers/ajax/addAlbumToDb.php",
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function(response) {
+                        alert(response);
+                    }
+                })
+            }, 7500);
         } else if (albumName.length === 0) {
             alert("You need to specify a name!");
         } else {
