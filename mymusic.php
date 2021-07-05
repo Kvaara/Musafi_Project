@@ -27,6 +27,9 @@
         <button id="clear-all-btn">Clear all songs</button>
         <button id="create-album-btn">CREATE</button>
 
+        <input type="file" id="testi" name="testi">
+        <button id="testi-btn">Testi</button>
+
     </div>
     <?php
     echo "<div>
@@ -107,6 +110,24 @@
         } else {
             alert("You need to add songs!");
         }
+    })
+
+    document.querySelector("#testi-btn").addEventListener("click", () => {
+        var file = document.querySelector("#testi").files[0];
+        var formDataNew = new FormData();
+        formDataNew.append("file", file);
+
+        $.ajax({
+            type: "POST",
+            url: "./includes/handlers/ajax/addAlbumToDb.php",
+            contentType: false,
+            processData: false,
+            data: formDataNew,
+            mimeType: "multipart/form-data",
+            success: function(response) {
+                alert(response);
+            }
+        })
     })
 </script>
 
