@@ -747,6 +747,17 @@ body {
   #current-song-info #current-song-author {
     font-size: 10px;
   }
+  .player-play-pause {
+    width: 50px;
+  }
+  #player-right,
+  #player-left {
+    width: 35px;
+  }
+  #player-repeat,
+  #player-shuffle {
+    width: 25px;
+  }
 }
 
 @media only screen and (max-width: 875px) {
