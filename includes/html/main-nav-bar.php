@@ -26,6 +26,8 @@ if (isset($_SESSION["userSignedIn"])) {
     <link rel="stylesheet" href="./assets/css/album-addtoplaylist.modal.css">
     <link rel="stylesheet" href="./assets/css/browse.styles.css">
     <link rel="stylesheet" href="./assets/css/mymusic.styles.css">
+    <link rel="stylesheet" href="./assets/css/upload.styles.css">
+
     <title>Home - Musafi</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./assets/js/album-page.script.js"></script>
@@ -62,6 +64,11 @@ if (isset($_SESSION["userSignedIn"])) {
                 <div id="nav-bar-your-music" class="nav-bar-item" role="link" tabindex="0">
                     <img id="nav-bar-yourmusic-img" class="nav-bar-img" src="./assets/img/nav_bar_yourmusic.svg" alt="Your music">
                     <span id="nav-bar-yourmusic-text" class="nav-bar-text">Your music</span>
+                </div>
+
+                <div id="nav-bar-upload-music" class="nav-bar-item" role="link" tabindex="0">
+                    <img id="nav-bar-uploadmusic-img" class="nav-bar-img" src="./assets/img/nav_bar_uploadmusic.svg" alt="Upload music">
+                    <span id="nav-bar-uploadmusic-text" class="nav-bar-text">Upload</span>
                 </div>
 
                 <div id="nav-bar-settings" class="nav-bar-item" role="link" tabindex="0">

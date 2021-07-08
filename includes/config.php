@@ -13,8 +13,10 @@ if (getenv("production")) {
     $active_group = 'default';
     $query_builder = TRUE;
     $con = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+} else if (getenv("EC2_DB_PASSWORD")) {
+    $con = mysqli_connect("localhost", "root", getenv("EC2_DB_PASSWORD"), "musafy");
 } else {
-    $con = mysqli_connect("127.0.0.1", "root", "", "musafy");
+    $con = mysqli_connect("localhost", "root", "", "musafy");
 }
 
 

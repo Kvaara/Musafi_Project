@@ -12,10 +12,21 @@ if (getenv("production")) {
             'secret' => getenv("aws_secret_access_key"),
         ]
     ]);
-} else {
+    // If the application is running in ec2
+} else if (getenv("EC2_DB_PASSWORD")) {
     $s3 = new Aws\S3\S3Client([
         'region'  => 'eu-central-1',
         'version' => 'latest',
-        // No need to set credentials, because we have a credentials file in the home directory in a folder .aws/
+        'credentials' => [
+            'key'    => getenv("ACC_KEY"),
+            'secret' => getenv("ACC_SEC"),
+        ]
+    ]);
+} else {
+    // If the application is running in localhost
+    $s3 = new Aws\S3\S3Client([
+        'region'  => 'eu-central-1',
+        'version' => 'latest',
+        // No need to set credentials, because we have a credentials file.
     ]);
 }

@@ -418,12 +418,13 @@ body {
 }
 
 .nav-bar-item:hover {
-  box-shadow: inset 5px 0px 0px #6f0000;
+  box-shadow: inset 4px 0px 0px #6f0000;
   cursor: pointer;
 }
 
 .nav-bar-item:hover .nav-bar-text {
   color: #e00000;
+  letter-spacing: 0px;
 }
 
 .nav-bar-item:hover #nav-bar-home-img {
@@ -440,6 +441,10 @@ body {
 
 .nav-bar-item:hover #nav-bar-yourmusic-img {
   transform: rotate(90deg);
+}
+
+.nav-bar-item:hover #nav-bar-uploadmusic-img {
+  transform: translateY(-3px);
 }
 
 .nav-bar-item:hover #nav-bar-settings-img {
@@ -459,6 +464,7 @@ body {
   color: white;
   opacity: 0;
   user-select: none;
+  letter-spacing: 1px;
 }
 
 #application-nav-bar:hover .nav-bar-text {
@@ -481,8 +487,11 @@ body {
   width: 35px;
 }
 
-#nav-bar-settings {
+#nav-bar-upload-music {
   margin-top: auto;
+}
+
+#nav-bar-settings {
   border-bottom: none;
 }
 
