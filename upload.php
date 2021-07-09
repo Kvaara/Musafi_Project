@@ -67,7 +67,7 @@
     }
 
     // If the user is using a mobile phone or tablet, they can add files without dragging
-    document.querySelector("#mymusic-files-nodrag").addEventListener("change", (event) => {
+    document.querySelector("#upload-files-nodrag").addEventListener("change", (event) => {
         var nodragDataItemArray = [...event.target.files];
         nodragDataItemArray.forEach((file) => {
             pushedFileNames.push(file.name);
@@ -85,7 +85,7 @@
     })
 
     document.querySelector("#create-album-btn").addEventListener("click", () => {
-        var albumName = document.querySelector("#mymusic-album-name").value;
+        var albumName = document.querySelector("#upload-album-name").value;
         if (document.querySelector("#grid-file-container").children.length !== 0 && albumName.length !== 0) {
 
             var fileSpans = document.querySelectorAll(".file-span");

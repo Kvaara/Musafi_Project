@@ -19,7 +19,7 @@
 #application-page-header.upload-header > h1 {
   text-align: left;
   color: white;
-  animation: uploadHeaderAnimation 800ms cubic-bezier(0.4, 0, 0.2, 1);
+  animation: uploadHeaderAnimation 500ms cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 3px;
   opacity: 1;
 }

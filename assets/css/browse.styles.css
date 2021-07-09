@@ -65,3 +65,99 @@
   letter-spacing: 2px;
   color: white;
 }
+
+#application-page-header.browse-header > button {
+  position: absolute;
+  left: 65%;
+  /*   transform: translateX(160%); */
+  padding: 10px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+#application-page-albums {
+  /*   display: flex; */
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-auto-flow: row;
+  justify-content: left;
+  align-items: center;
+  /*   flex-direction: row; */
+  padding-top: 50px;
+  /*   flex-wrap: wrap; */
+  overflow-y: auto;
+  /* margin-right: 5%; */
+  /*   margin-left: 5%; */
+}
+
+#application-page-artists {
+  display: none;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-auto-flow: row;
+  justify-content: left;
+  align-items: center;
+  /*   flex-direction: row; */
+  padding-top: 50px;
+  /*   flex-wrap: wrap; */
+  overflow-y: auto;
+  /* margin-right: 5%; */
+  /*   margin-left: 5%; */
+}
+
+.span-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#application-page-albums > .span-link,
+#application-page-artists > .span-link {
+  flex: 0 0 20%;
+  margin-bottom: 50px;
+}
+
+.albums,
+.artists {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: 200ms ease-in-out;
+  animation: albumsFadeIn 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.albums:hover,
+.artists:hover {
+  transform: scale(1.4);
+}
+
+.albums:hover .album-info,
+.artists:hover .artist-info {
+  letter-spacing: 0px;
+}
+
+.album-info,
+.artist-info {
+  color: white;
+  font-size: 20px;
+  letter-spacing: 4px;
+  transition: 200ms ease-in-out;
+  text-align: center;
+}
+
+.album-img,
+.artist-img {
+  width: 120px;
+  height: 160px;
+  border-radius: 5px;
+  object-fit: cover;
+  border: 1px solid #2c8c99;
+  transition: 200ms ease-in-out;
+}
+
+@media only screen and (max-width: 875px) {
+  #application-page-albums > .span-link {
+    flex: 1 0 33%;
+  }
+}
