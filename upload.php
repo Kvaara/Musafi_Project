@@ -17,20 +17,23 @@
         </div>
 
         <div id="upload-files-container" ondrop="dropFile(event)" ondragover="allowDrop(event)">
-            <h2>Add files <span>(by dragging here)</span></h3>
+            <h2>Add files <span>(by dragging them here)</span></h3>
                 <div id="grid-file-container">
-
+                    <div id="upload-files-nodrag-container">
+                        <span>or</span>
+                        <label for="upload-files-nodrag">Browse files</label>
+                        <input type="file" id="upload-files-nodrag" style="display: none;" multiple>
+                    </div>
                 </div>
 
         </div>
-        <div id="upload-files-nodrag-container">
-            <label for="upload-files">Add music without dragging</label>
-            <input type="file" id="upload-files-nodrag">
-        </div>
+
         <button id="clear-all-btn">Clear all songs</button>
         <button id="create-album-btn">CREATE</button>
 
     </div>
+
+    <!-- This is mandatory because else the page will break. Part of PHP features? -->
     <?php
     echo "<div>
                             </div";
@@ -56,6 +59,7 @@
                     span.currentFile = file;
                     span.classList.add("file-span");
                     document.querySelector("#grid-file-container").appendChild(span);
+                    document.querySelector("#upload-files-nodrag-container").style.display = "none";
                 }
             })
         }
@@ -76,14 +80,26 @@
             span.currentFile = file;
             span.classList.add("file-span");
             document.querySelector("#grid-file-container").appendChild(span);
+            document.querySelector("#upload-files-nodrag-container").style.display = "none";
         })
     })
 
-
+    // Clear all button functionality
     document.querySelector("#clear-all-btn").addEventListener("click", () => {
+        //Saving the upload files nodrag container
+        document.querySelector("#upload-files-nodrag-container").style.display = "flex";
+        var uploadFilesNodragContainer = document.querySelector("#grid-file-container").firstElementChild;
+        // Resetting the grid file container that contains the files
         document.querySelector("#grid-file-container").textContent = "";
+        // Appending the upload file nodrag container
+        document.querySelector("#grid-file-container").appendChild(uploadFilesNodragContainer);
+        // Resetting the hidden input type file element. Making the .files null doesn't work FULLY for some reason... Resetting .value does work.
+        document.querySelector("#upload-files-nodrag").value = "";
+        // Resetting also the pushedFileNames that are used for preventing duplicates
+        pushedFileNames = [];
     })
 
+    // Create album button functionality. Should only work if the user has provided the mandatory information
     document.querySelector("#create-album-btn").addEventListener("click", () => {
         var albumName = document.querySelector("#upload-album-name").value;
         if (document.querySelector("#grid-file-container").children.length !== 0 && albumName.length !== 0) {
@@ -97,16 +113,11 @@
                 formData.append(fileName, currentFile);
             })
 
-
+            // *** This is a way to print the formData entries. Regular console.log doesn't work.
             // for (var [key, value] of formData.entries()) {
             //     console.log(key, value)
             // }
 
-            // $.post("./includes/handlers/ajax/addAlbumToDb.php", {
-            //     albumName
-            // }, (result) => {
-            //     var data = JSON.parse(result);
-            // })
             $.ajax({
                 type: "POST",
                 url: "./includes/handlers/ajax/addAlbumToDb.php",

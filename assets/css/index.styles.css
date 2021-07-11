@@ -138,14 +138,14 @@ body {
   -o-user-select: none;
   user-select: none;
   /* Should outline be a brighter shade of below purple? */
-  border-top: 2px solid #200122;
+  border-top: 2px solid #38023b;
 
   transition: 200ms ease-in-out;
 }
 
-#footer-player-container:hover {
+/* #footer-player-container:hover {
   border-top: 2px solid #38023b;
-}
+} */
 
 #player-control-container {
   flex: 0 0 33.333333%;
@@ -393,10 +393,10 @@ body {
   flex-direction: column;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  border-bottom: 2px solid #200122;
-  border-right: 2px solid #200122;
-  border-top: 2px solid #200122;
-  transition: 200ms ease-in-out;
+  border-bottom: 2px solid #38023b;
+  border-right: 2px solid #38023b;
+  border-top: 2px solid #38023b;
+  transition: 100ms ease-in-out;
 }
 
 #application-nav-bar:hover {
@@ -459,7 +459,7 @@ body {
 }
 
 .nav-bar-text {
-  transition: 200ms ease-in-out;
+  transition: 100ms ease-in-out;
   font-size: 0px;
   color: white;
   opacity: 0;

@@ -1,9 +1,9 @@
 <?php include("./includes/includedNavbar.php") ?>
 
 <header id="application-page-header" class="browse-header">
-    <h1>Browse the finest tunes:</h1>
-    <input placeholder="Search by album name" id="browse-search-input">
-    <button id="toggle-show-content">Showing albums</button>
+    <input id="browse-search-input">
+    <h1>Filter by album</h1>
+    <button id="toggle-show-content">Show artists</button>
 </header>
 
 <section id="application-page-section">
@@ -43,10 +43,10 @@
 
 <script>
     var browseInput = document.querySelector("#browse-search-input");
-    browseInput.focus();
     var everyAlbum = [...document.querySelector("#application-page-albums").children];
     var everyArtist = [...document.querySelector("#application-page-artists").children];
-
+    var browseHeader = document.querySelector(".browse-header");
+    var browseHeaderH1 = browseHeader.querySelector("h1");
     var toggleShowContent = document.querySelector("#toggle-show-content");
 
     browseInput.addEventListener("keyup", (event) => {
@@ -60,12 +60,40 @@
             })
         } else {
             var filteredArtists = everyArtist.filter((artist) => artist.querySelector(".artist-info").textContent.toLowerCase().includes(browseInputValue.toLowerCase()));
-            console.log("lol");
             document.querySelector("#application-page-artists").textContent = "";
             filteredArtists.forEach((artist, index) => {
                 document.querySelector("#application-page-artists").appendChild(artist);
             })
         }
+
+        // if (browseInputValue.length > 0) {
+        //     browseHeader.querySelector("h1").classList.add("active");
+        // }
+        browseInputValue.length > 0 ? browseHeaderH1.classList.add("active") : browseHeaderH1.classList.remove("active");
+    })
+
+    browseInput.addEventListener("mouseover", (event) => {
+        if (!toggleShowContent.classList.contains("show-artists")) {
+            event.target.placeholder = "Search by artist name...";
+        } else {
+            event.target.placeholder = "Search by album name...";
+        }
+    })
+
+    browseInput.addEventListener("mouseout", () => {
+        event.target.placeholder = "";
+    })
+
+    browseInput.addEventListener("focus", () => {
+        if (!toggleShowContent.classList.contains("show-artists")) {
+            event.target.placeholder = "Search by artist name...";
+        } else {
+            event.target.placeholder = "Search by album name...";
+        }
+    })
+
+    browseInput.addEventListener("blur", () => {
+        event.target.placeholder = "";
     })
 
     toggleShowContent.addEventListener("click", () => {
@@ -73,14 +101,14 @@
             toggleShowContent.classList.add("show-artists");
             document.querySelector("#application-page-albums").style.display = "none";
             document.querySelector("#application-page-artists").style.display = "grid";
-            toggleShowContent.textContent = "Showing artists";
-            browseInput.placeholder = "Search by artist name";
+            toggleShowContent.textContent = "Show albums";
+            browseHeaderH1.textContent = "Filter by artist"
         } else {
             toggleShowContent.classList.remove("show-artists");
             document.querySelector("#application-page-artists").style.display = "none";
             document.querySelector("#application-page-albums").style.display = "grid";
-            toggleShowContent.textContent = "Showing albums";
-            browseInput.placeholder = "Search by album name";
+            toggleShowContent.textContent = "Show artists";
+            browseHeaderH1.textContent = "Filter by album";
         }
     })
 </script>
